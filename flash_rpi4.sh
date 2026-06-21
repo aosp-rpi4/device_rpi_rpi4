@@ -7,8 +7,11 @@ set -e
 # ============================================================
 
 # --- Config ---
-AOSP_OUT="/home/mohamed/android/aosp/out/target/product/rpi4"
-DEVICE_DIR="/home/mohamed/android/aosp/device/rpi/rpi4"
+# Derive paths from this script's location so it works in any AOSP tree
+# (device/rpi/rpi4/flash_rpi4.sh -> AOSP root is three levels up). Honor
+# ANDROID_PRODUCT_OUT if it's exported into the environment.
+DEVICE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+AOSP_OUT="${ANDROID_PRODUCT_OUT:-$(cd "$DEVICE_DIR/../../.." && pwd)/out/target/product/rpi4}"
 BOOT_FAT="$AOSP_OUT/boot_fat"
 SD_CARD="${1}"
 TMPDIR="/tmp/rpi4_flash"

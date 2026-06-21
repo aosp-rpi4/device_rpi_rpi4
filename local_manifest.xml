@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  RPi4 AAOS local manifest.
+
+  Usage:
+    1. repo init an AOSP base (see README for the exact branch/tag).
+    2. cp this file into  .repo/local_manifests/rpi4.xml
+    3. repo sync -j8
+
+  Pulls the RPi4 head-unit BSP (device tree + kernel + Mesa v3d + minigbm)
+  from the github.com/aosp-rpi4 organization on top of the AOSP base.
+-->
+<manifest>
+  <remote name="aosp-rpi4" fetch="https://github.com/aosp-rpi4/" />
+  <remote name="rpi"       fetch="https://github.com/raspberrypi/" />
+
+  <!-- Additions (not present in stock AOSP) -->
+  <project path="device/rpi/rpi4"     name="device_rpi_rpi4"     remote="aosp-rpi4" revision="main">
+    <!-- Allow Mesa-v3d's legacy Android.mk past Soong's external/ denylist,
+         without editing build/soong: Soong reads this path as an extra allowlist. -->
+    <copyfile src="androidmk_allowlist.txt" dest="vendor/google/build/androidmk/allowlist.txt" />
+  </project>
+  <project path="kernel/rpi/rpi4"     name="kernel_rpi_rpi4"     remote="aosp-rpi4" revision="rpi4-aaos" />
+  <project path="external/mesa3d-v3d" name="external_mesa3d-v3d" remote="aosp-rpi4" revision="rpi4-aaos" />
+
+  <!-- Replace stock AOSP minigbm with our gbm_mesa fork -->
+  <remove-project name="platform/external/minigbm" />
+  <project path="external/minigbm"    name="external_minigbm"    remote="aosp-rpi4" revision="rpi4-aaos" />
+
+  <!-- Raspberry Pi GPU/boot firmware (start4.elf, fixup4.dat, overlays/) -->
+  <project path="vendor/rpi-firmware" name="firmware" remote="rpi" revision="master" clone-depth="1" />
+</manifest>
