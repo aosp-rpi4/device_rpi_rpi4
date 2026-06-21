@@ -1,0 +1,188 @@
+# 0 "arch/arm64/boot/dts/overlays/vc4-kms-v3d-pi5-overlay.dts"
+# 0 "<built-in>"
+# 0 "<command-line>"
+# 1 "arch/arm64/boot/dts/overlays/vc4-kms-v3d-pi5-overlay.dts"
+
+
+# 1 "arch/arm64/boot/dts/overlays/cma-overlay.dts" 1
+
+
+
+
+/dts-v1/;
+/plugin/;
+
+/ {
+ compatible = "brcm,bcm2835";
+
+ fragment@0 {
+  target = <&cma>;
+  frag0: __overlay__ {
+
+
+
+
+
+   size = <0x10000000>;
+  };
+ };
+
+ __overrides__ {
+  cma-512 = <&frag0>,"size:0=",<0x20000000>;
+  cma-448 = <&frag0>,"size:0=",<0x1c000000>;
+  cma-384 = <&frag0>,"size:0=",<0x18000000>;
+  cma-320 = <&frag0>,"size:0=",<0x14000000>;
+  cma-256 = <&frag0>,"size:0=",<0x10000000>;
+  cma-192 = <&frag0>,"size:0=",<0xC000000>;
+  cma-128 = <&frag0>,"size:0=",<0x8000000>;
+  cma-96 = <&frag0>,"size:0=",<0x6000000>;
+  cma-64 = <&frag0>,"size:0=",<0x4000000>;
+  cma-size = <&frag0>,"size:0";
+  cma-default = <0>,"-0";
+ };
+};
+# 4 "arch/arm64/boot/dts/overlays/vc4-kms-v3d-pi5-overlay.dts" 2
+
+&frag0 {
+ size = <(64*1024*1024)>;
+};
+
+/ {
+ compatible = "brcm,bcm2712";
+
+ fragment@1 {
+  target = <&fb>;
+  __overlay__ {
+   status = "disabled";
+  };
+ };
+
+ fragment@2 {
+  target = <&aon_intr>;
+  __overlay__ {
+   status = "okay";
+  };
+ };
+
+ fragment@3 {
+  target = <&ddc0>;
+  __overlay__ {
+   status = "okay";
+  };
+ };
+
+ fragment@4 {
+  target = <&ddc1>;
+  __overlay__ {
+   status = "okay";
+  };
+ };
+
+ fragment@5 {
+  target = <&hdmi0>;
+  __overlay__ {
+   status = "okay";
+  };
+ };
+
+ fragment@6 {
+  target = <&hdmi1>;
+  __overlay__ {
+   status = "okay";
+  };
+ };
+
+ fragment@7 {
+  target = <&hvs>;
+  __overlay__ {
+   status = "okay";
+  };
+ };
+
+ fragment@8 {
+  target = <&mop>;
+  __overlay__ {
+   status = "okay";
+  };
+ };
+
+ fragment@9 {
+  target = <&moplet>;
+  __overlay__ {
+   status = "okay";
+  };
+ };
+
+ fragment@10 {
+  target = <&pixelvalve0>;
+  __overlay__ {
+   status = "okay";
+  };
+ };
+
+ fragment@11 {
+  target = <&pixelvalve1>;
+  __overlay__ {
+   status = "okay";
+  };
+ };
+
+ fragment@12 {
+  target = <&v3d>;
+  __overlay__ {
+   status = "okay";
+  };
+ };
+
+ fragment@13 {
+  target = <&vec>;
+  frag13: __overlay__ {
+   status = "disabled";
+  };
+ };
+
+ fragment@14 {
+  target = <&hdmi0>;
+  __dormant__ {
+   dmas;
+  };
+ };
+
+ fragment@15 {
+  target = <&hdmi1>;
+  __dormant__ {
+   dmas;
+  };
+ };
+
+ fragment@16 {
+  target = <&disp_intr>;
+  __overlay__ {
+   status = "okay";
+  };
+ };
+
+ fragment@17 {
+  target = <&vc4>;
+  __overlay__ {
+
+   iommus = <&iommu4>;
+  };
+ };
+
+ __overrides__ {
+  audio = <0>,"!14";
+  audio1 = <0>,"!15";
+  noaudio = <0>,"=14", <0>,"=15";
+  composite = <0>, "!3",
+       <0>, "!4",
+       <0>, "!5",
+       <0>, "!6",
+       <0>, "!10",
+       <0>, "!11",
+       <&frag13>, "status";
+  nohdmi0 = <0>, "-3-5-10";
+  nohdmi1 = <0>, "-4-6-11";
+  nohdmi = <0>, "-3-4-5-6-10-11";
+ };
+};

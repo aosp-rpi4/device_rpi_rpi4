@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/hat_map.dtb: arch/arm64/boot/dts/overlays/.hat_map.dtb.dts.tmp

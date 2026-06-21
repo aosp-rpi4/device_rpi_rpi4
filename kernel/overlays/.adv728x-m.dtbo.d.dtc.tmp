@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/adv728x-m.dtbo: arch/arm64/boot/dts/overlays/.adv728x-m.dtbo.dts.tmp

@@ -1,0 +1,1 @@
+max98357a-overlay.o: arch/arm64/boot/dts/overlays/max98357a-overlay.dts

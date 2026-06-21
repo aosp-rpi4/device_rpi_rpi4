@@ -1,0 +1,1 @@
+overlay_map.o: arch/arm64/boot/dts/overlays/overlay_map.dts

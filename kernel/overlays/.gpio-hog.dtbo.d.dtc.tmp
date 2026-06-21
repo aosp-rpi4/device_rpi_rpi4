@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/gpio-hog.dtbo: arch/arm64/boot/dts/overlays/.gpio-hog.dtbo.dts.tmp

@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/jedec-spi-nor.dtbo: arch/arm64/boot/dts/overlays/.jedec-spi-nor.dtbo.dts.tmp

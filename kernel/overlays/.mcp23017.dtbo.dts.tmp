@@ -1,0 +1,137 @@
+# 0 "arch/arm64/boot/dts/overlays/mcp23017-overlay.dts"
+# 0 "<built-in>"
+# 0 "<command-line>"
+# 1 "arch/arm64/boot/dts/overlays/mcp23017-overlay.dts"
+
+
+/dts-v1/;
+/plugin/;
+
+# 1 "arch/arm64/boot/dts/overlays/i2c-buses.dtsi" 1
+
+
+/ {
+ compatible = "brcm,bcm2835";
+
+ busfrag: fragment@100 {
+  target = <&i2c_arm>;
+  i2cbus: __overlay__ {
+   status = "okay";
+  };
+ };
+
+ fragment@101 {
+  target = <&i2c0if>;
+
+
+
+  __dormant__ {
+
+   status = "okay";
+  };
+ };
+
+ fragment@102 {
+  target = <&i2c0mux>;
+
+
+
+  __dormant__ {
+
+   status = "okay";
+  };
+ };
+
+ __overrides__ {
+  i2c0 = <&busfrag>,"target:0=",<&i2c0>,
+         <&busfrag>, "target-path?=0",
+         <0>,"+101+102";
+  i2c_csi_dsi = <&busfrag>,"target:0=",<&i2c_csi_dsi>,
+         <&busfrag>, "target-path?=0",
+         <0>,"+101+102";
+  i2c_csi_dsi0 = <&busfrag>, "target:0=",<&i2c_csi_dsi0>,
+          <&busfrag>, "target-path?=0",
+          <0>,"+101+102";
+  i2c1 = <&busfrag>,"target:0=",<&i2c1>,
+         <&busfrag>, "target-path?=0",
+         <0>,"-101-102";
+  i2c2 = <&busfrag>, "target?=0",
+         <&busfrag>, "target-path=i2c2",
+         <0>,"-101-102";
+  i2c3 = <&busfrag>, "target?=0",
+         <&busfrag>, "target-path=i2c3",
+         <0>,"-101-102";
+  i2c4 = <&busfrag>, "target?=0",
+         <&busfrag>, "target-path=i2c4",
+         <0>,"-101-102";
+  i2c5 = <&busfrag>, "target?=0",
+         <&busfrag>, "target-path=i2c5",
+         <0>,"-101-102";
+  i2c6 = <&busfrag>, "target?=0",
+         <&busfrag>, "target-path=i2c6",
+         <0>,"-101-102";
+  i2c-path = <&busfrag>, "target?=0",
+      <&busfrag>, "target-path",
+      <0>,"-101-102";
+ };
+};
+# 7 "arch/arm64/boot/dts/overlays/mcp23017-overlay.dts" 2
+
+/ {
+ compatible = "brcm,bcm2835";
+
+ fragment@1 {
+  target = <&gpio>;
+  __overlay__ {
+   mcp23017_pins: mcp23017_pins@20 {
+    brcm,pins = <4>;
+    brcm,function = <0>;
+   };
+  };
+ };
+
+ fragment@2 {
+  target = <&mcp23017>;
+  __dormant__ {
+   compatible = "microchip,mcp23008";
+  };
+ };
+
+ fragment@3 {
+  target = <&mcp23017>;
+  mcp23017_irq: __overlay__ {
+   #interrupt-cells=<2>;
+   pinctrl-names = "default";
+   pinctrl-0 = <&mcp23017_pins>;
+   interrupt-parent = <&gpio>;
+   interrupts = <4 2>;
+   interrupt-controller;
+   microchip,irq-mirror;
+  };
+ };
+
+ fragment@4 {
+  target = <&i2cbus>;
+  __overlay__ {
+   #address-cells = <1>;
+   #size-cells = <0>;
+
+   mcp23017: mcp@20 {
+    compatible = "microchip,mcp23017";
+    reg = <0x20>;
+    gpio-controller;
+    #gpio-cells = <2>;
+
+    status = "okay";
+   };
+  };
+ };
+
+ __overrides__ {
+  gpiopin = <&mcp23017_pins>,"brcm,pins:0",
+    <&mcp23017_irq>,"interrupts:0";
+  addr = <&mcp23017>,"reg:0", <&mcp23017_pins>,"reg:0";
+  mcp23008 = <0>,"=2";
+  noints = <0>,"!1!3";
+ };
+};

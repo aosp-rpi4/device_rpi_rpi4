@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/pibell.dtbo: arch/arm64/boot/dts/overlays/.pibell.dtbo.dts.tmp

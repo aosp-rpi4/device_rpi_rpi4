@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/adau1977-adc.dtbo: arch/arm64/boot/dts/overlays/.adau1977-adc.dtbo.dts.tmp

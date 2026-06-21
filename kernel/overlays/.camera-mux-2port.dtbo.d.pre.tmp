@@ -1,0 +1,15 @@
+camera-mux-2port-overlay.o: \
+ arch/arm64/boot/dts/overlays/camera-mux-2port-overlay.dts \
+ scripts/dtc/include-prefixes/dt-bindings/gpio/gpio.h \
+ arch/arm64/boot/dts/overlays/arducam-64mp.dtsi \
+ arch/arm64/boot/dts/overlays/imx219.dtsi \
+ arch/arm64/boot/dts/overlays/imx477_378.dtsi \
+ arch/arm64/boot/dts/overlays/imx519.dtsi \
+ arch/arm64/boot/dts/overlays/imx708.dtsi \
+ arch/arm64/boot/dts/overlays/ov5647.dtsi \
+ arch/arm64/boot/dts/overlays/ov7251.dtsi \
+ arch/arm64/boot/dts/overlays/ov9281.dtsi \
+ arch/arm64/boot/dts/overlays/imx258.dtsi \
+ arch/arm64/boot/dts/overlays/imx290_327.dtsi \
+ arch/arm64/boot/dts/overlays/ov2311.dtsi \
+ arch/arm64/boot/dts/overlays/ov64a40.dtsi

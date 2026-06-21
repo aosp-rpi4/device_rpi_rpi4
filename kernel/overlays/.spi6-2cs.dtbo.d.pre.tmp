@@ -1,0 +1,1 @@
+spi6-2cs-overlay.o: arch/arm64/boot/dts/overlays/spi6-2cs-overlay.dts

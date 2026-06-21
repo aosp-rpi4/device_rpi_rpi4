@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/applepi-dac.dtbo: arch/arm64/boot/dts/overlays/.applepi-dac.dtbo.dts.tmp

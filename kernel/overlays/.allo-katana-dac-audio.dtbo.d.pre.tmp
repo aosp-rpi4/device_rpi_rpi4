@@ -1,0 +1,2 @@
+allo-katana-dac-audio-overlay.o: \
+ arch/arm64/boot/dts/overlays/allo-katana-dac-audio-overlay.dts

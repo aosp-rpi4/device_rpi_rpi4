@@ -1,0 +1,2 @@
+vc4-kms-dsi-lt070me05000-v2-overlay.o: \
+ arch/arm64/boot/dts/overlays/vc4-kms-dsi-lt070me05000-v2-overlay.dts

@@ -1,0 +1,2 @@
+interludeaudio-digital-overlay.o: \
+ arch/arm64/boot/dts/overlays/interludeaudio-digital-overlay.dts

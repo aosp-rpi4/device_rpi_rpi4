@@ -1,0 +1,1 @@
+ssd1306-overlay.o: arch/arm64/boot/dts/overlays/ssd1306-overlay.dts

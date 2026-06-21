@@ -1,0 +1,88 @@
+# 0 "arch/arm64/boot/dts/overlays/vc4-fkms-v3d-pi4-overlay.dts"
+# 0 "<built-in>"
+# 0 "<command-line>"
+# 1 "arch/arm64/boot/dts/overlays/vc4-fkms-v3d-pi4-overlay.dts"
+
+
+
+
+# 1 "arch/arm64/boot/dts/overlays/cma-overlay.dts" 1
+
+
+
+
+/dts-v1/;
+/plugin/;
+
+/ {
+ compatible = "brcm,bcm2835";
+
+ fragment@0 {
+  target = <&cma>;
+  frag0: __overlay__ {
+
+
+
+
+
+   size = <0x10000000>;
+  };
+ };
+
+ __overrides__ {
+  cma-512 = <&frag0>,"size:0=",<0x20000000>;
+  cma-448 = <&frag0>,"size:0=",<0x1c000000>;
+  cma-384 = <&frag0>,"size:0=",<0x18000000>;
+  cma-320 = <&frag0>,"size:0=",<0x14000000>;
+  cma-256 = <&frag0>,"size:0=",<0x10000000>;
+  cma-192 = <&frag0>,"size:0=",<0xC000000>;
+  cma-128 = <&frag0>,"size:0=",<0x8000000>;
+  cma-96 = <&frag0>,"size:0=",<0x6000000>;
+  cma-64 = <&frag0>,"size:0=",<0x4000000>;
+  cma-size = <&frag0>,"size:0";
+  cma-default = <0>,"-0";
+ };
+};
+# 6 "arch/arm64/boot/dts/overlays/vc4-fkms-v3d-pi4-overlay.dts" 2
+
+&frag0 {
+ size = <((512-4)*1024*1024)>;
+};
+
+/ {
+ compatible = "brcm,bcm2711";
+
+ fragment@1 {
+  target = <&fb>;
+  __overlay__ {
+   status = "disabled";
+  };
+ };
+
+ fragment@2 {
+  target = <&firmwarekms>;
+  __overlay__ {
+   status = "okay";
+  };
+ };
+
+ fragment@3 {
+  target = <&v3d>;
+  __overlay__ {
+   status = "okay";
+  };
+ };
+
+ fragment@4 {
+  target = <&vc4>;
+  __overlay__ {
+   status = "okay";
+  };
+ };
+ fragment@5 {
+  target-path = "/chosen";
+  __overlay__ {
+   bootargs = "clk_ignore_unused";
+  };
+ };
+};

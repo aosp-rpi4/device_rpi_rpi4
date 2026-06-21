@@ -1,0 +1,32 @@
+# 0 "arch/arm64/boot/dts/overlays/gpio-hog-overlay.dts"
+# 0 "<built-in>"
+# 0 "<command-line>"
+# 1 "arch/arm64/boot/dts/overlays/gpio-hog-overlay.dts"
+
+/dts-v1/;
+/plugin/;
+
+# 1 "./scripts/dtc/include-prefixes/dt-bindings/gpio/gpio.h" 1
+# 6 "arch/arm64/boot/dts/overlays/gpio-hog-overlay.dts" 2
+
+/ {
+ compatible = "brcm,bcm2835";
+
+ fragment@0 {
+  target = <&gpio>;
+  __overlay__ {
+   hog: hog@1a {
+        gpio-hog;
+        gpios = <26 0>;
+        output-high;
+   };
+  };
+ };
+
+ __overrides__ {
+  gpio = <&hog>,"reg:0",
+               <&hog>,"gpios:0";
+  active_low = <&hog>,"output-high!",
+        <&hog>,"output-low?";
+ };
+};

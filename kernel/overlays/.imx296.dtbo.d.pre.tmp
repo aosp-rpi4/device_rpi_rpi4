@@ -1,0 +1,2 @@
+imx296-overlay.o: arch/arm64/boot/dts/overlays/imx296-overlay.dts \
+ scripts/dtc/include-prefixes/dt-bindings/gpio/gpio.h

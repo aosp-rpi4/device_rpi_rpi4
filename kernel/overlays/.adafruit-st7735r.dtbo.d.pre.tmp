@@ -1,0 +1,3 @@
+adafruit-st7735r-overlay.o: \
+ arch/arm64/boot/dts/overlays/adafruit-st7735r-overlay.dts \
+ scripts/dtc/include-prefixes/dt-bindings/gpio/gpio.h

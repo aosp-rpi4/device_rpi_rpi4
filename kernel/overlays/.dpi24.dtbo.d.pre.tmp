@@ -1,0 +1,1 @@
+dpi24-overlay.o: arch/arm64/boot/dts/overlays/dpi24-overlay.dts

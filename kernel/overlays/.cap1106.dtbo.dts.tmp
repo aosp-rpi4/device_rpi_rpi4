@@ -1,0 +1,56 @@
+# 0 "arch/arm64/boot/dts/overlays/cap1106-overlay.dts"
+# 0 "<built-in>"
+# 0 "<command-line>"
+# 1 "arch/arm64/boot/dts/overlays/cap1106-overlay.dts"
+
+
+
+/dts-v1/;
+/plugin/;
+
+/ {
+        compatible = "brcm,bcm2835";
+        fragment@0 {
+                target = <&i2c1>;
+                __overlay__{
+                        status = "okay";
+                        cap1106: cap1106@28 {
+                                compatible = "microchip,cap1106";
+                                pinctrl-0 = <&cap1106_pins>;
+                                pinctrl-names = "default";
+                                interrupt-parent = <&gpio>;
+                                interrupts = <4 2>;
+                                reg = <0x28>;
+                                autorepeat;
+                                microchip,sensor-gain = <2>;
+
+                                linux,keycodes = <2>,
+                                                <3>,
+                                                <4>,
+                                                <5>,
+                                                <6>,
+                                                <7>;
+
+                                #address-cells = <1>;
+                                #size-cells = <0>;
+                                status = "okay";
+
+                        };
+                };
+        };
+        fragment@1 {
+                target = <&gpio>;
+                __overlay__ {
+                        cap1106_pins: cap1106_pins {
+                                brcm,pins = <4>;
+                                brcm,function = <0>;
+                                brcm,pull = <0>;
+                        };
+                };
+        };
+
+        __overrides__ {
+                int_pin = <&cap1106>, "interrupts:0",
+                          <&cap1106_pins>, "brcm,pins:0";
+        };
+};

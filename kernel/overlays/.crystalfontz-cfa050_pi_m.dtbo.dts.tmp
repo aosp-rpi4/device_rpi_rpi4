@@ -1,0 +1,128 @@
+# 0 "arch/arm64/boot/dts/overlays/crystalfontz-cfa050_pi_m-overlay.dts"
+# 0 "<built-in>"
+# 0 "<command-line>"
+# 1 "arch/arm64/boot/dts/overlays/crystalfontz-cfa050_pi_m-overlay.dts"
+
+
+
+
+
+/dts-v1/;
+/plugin/;
+/{
+
+ compatible = "brcm,bcm2835";
+
+ fragment@0 {
+  target = <&i2c_csi_dsi>;
+  __overlay__ {
+   #address-cells = <1>;
+   #size-cells = <0>;
+   status = "okay";
+   pcf8574a: pcf8574a@38 {
+    reg = <0x38>;
+    compatible = "nxp,pcf8574";
+    gpio-controller;
+    #gpio-cells = <2>;
+    ngpios = <8>;
+    gpio-line-names = "TFT_RESET", "TOUCH_RESET", "EXT_P2", "EXT_P3",
+     "EXT_P4", "EXT_P5", "EXT_P6", "EXT_P7";
+   };
+  };
+ };
+
+ fragment@1 {
+  target = <&i2c_csi_dsi>;
+  __overlay__ {
+   #address-cells = <1>;
+   #size-cells = <0>;
+   status = "okay";
+   lm3630a: backlight@36 {
+    reg = <0x36>;
+    compatible = "ti,lm3630a";
+    #address-cells = <1>;
+    #size-cells = <0>;
+    led@0 {
+     reg = <0>;
+     led-sources = <0 1>;
+     label = "lcd-backlight";
+     default-brightness = <128>;
+     max-brightness = <255>;
+    };
+   };
+  };
+ };
+
+ fragment@2 {
+  target = <&dsi1>;
+  __overlay__ {
+   #address-cells = <1>;
+   #size-cells = <0>;
+   status = "okay";
+   port {
+    dsi_out: endpoint {
+     remote-endpoint = <&panel_in>;
+    };
+   };
+   dsi_panel: dsi_panel@0 {
+    compatible = "crystalfontz,cfaf7201280a0_050tx";
+    reg = <0>;
+    reset-gpios = <&pcf8574a 0 1>;
+    backlight = <&lm3630a>;
+    fps = <60>;
+    port {
+     panel_in: endpoint {
+      remote-endpoint = <&dsi_out>;
+     };
+    };
+   };
+  };
+ };
+
+ fragment@3 {
+  target = <&gpio>;
+  __dormant__ {
+   gt928intpins: gt928intpins {
+    brcm,pins = <26>;
+    brcm,function = <0>;
+    brcm,pull = <1>;
+   };
+  };
+ };
+
+ fragment@4 {
+  target = <&i2c_csi_dsi>;
+  __dormant__ {
+   #address-cells = <1>;
+   #size-cells = <0>;
+   status = "okay";
+   gt928@5d {
+    compatible = "goodix,gt928";
+    reg = <0x5d>;
+    interrupt-parent = <&gpio>;
+    interrupts = <26 2>;
+    irq-gpios = <&gpio 26 0>;
+    reset-gpios = <&pcf8574a 1 1>;
+    touchscreen-inverted-x;
+    touchscreen-inverted-y;
+   };
+  };
+ };
+
+ fragment@5 {
+  target = <&i2c_csi_dsi>;
+  __overlay__ {
+   #address-cells = <1>;
+   #size-cells = <0>;
+   status = "okay";
+   pcf85063a@51 {
+    compatible = "nxp,pcf85063a";
+    reg = <0x51>;
+   };
+  };
+ };
+
+ __overrides__ {
+  captouch = <0>,"+3+4";
+ };
+};

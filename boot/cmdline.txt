@@ -1,0 +1,1 @@
+console=tty1 console=ttyAMA0,115200 cgroup_enable=memory cgroup_enable=cpuset psi=1 androidboot.hardware=rpi4 androidboot.selinux=permissive init=/init root=/dev/mmcblk0p2 rootfstype=ext4 rootwait ro

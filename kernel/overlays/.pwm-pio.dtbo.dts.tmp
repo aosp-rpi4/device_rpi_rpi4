@@ -1,0 +1,43 @@
+# 0 "arch/arm64/boot/dts/overlays/pwm-pio-overlay.dts"
+# 0 "<built-in>"
+# 0 "<command-line>"
+# 1 "arch/arm64/boot/dts/overlays/pwm-pio-overlay.dts"
+
+
+/dts-v1/;
+/plugin/;
+
+/ {
+ compatible = "brcm,bcm2712";
+
+ fragment@0 {
+  target = <&gpio>;
+  __overlay__ {
+   pwm_pio_pins: pwm_pio_pins@4 {
+    brcm,pins = <4>;
+    function = "pio";
+    bias-disable;
+   };
+  };
+ };
+
+ fragment@1 {
+  target-path = "/";
+  __overlay__ {
+   pwm_pio: pwm_pio@4 {
+      compatible = "raspberrypi,pwm-pio-rp1";
+      pinctrl-names = "default";
+      pinctrl-0 = <&pwm_pio_pins>;
+      gpios = <&gpio 4 0>;
+   };
+  };
+ };
+
+ __overrides__ {
+  gpio = <&pwm_pio>,"gpios:4",
+         <&pwm_pio_pins>,"brcm,pins:0",
+
+         <&pwm_pio>,"reg:0",
+         <&pwm_pio_pins>,"reg:0";
+ };
+};

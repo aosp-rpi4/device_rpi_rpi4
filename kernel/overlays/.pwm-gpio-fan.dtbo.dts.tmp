@@ -1,0 +1,128 @@
+# 0 "arch/arm64/boot/dts/overlays/pwm-gpio-fan-overlay.dts"
+# 0 "<built-in>"
+# 0 "<command-line>"
+# 1 "arch/arm64/boot/dts/overlays/pwm-gpio-fan-overlay.dts"
+# 48 "arch/arm64/boot/dts/overlays/pwm-gpio-fan-overlay.dts"
+/dts-v1/;
+/plugin/;
+
+/ {
+ compatible = "brcm,bcm2835";
+
+ fragment@0 {
+  target = <&gpio>;
+  __overlay__ {
+   pwm_gpio_pins: pwm_gpio_pins {
+    brcm,pins = <18>;
+    brcm,function = <1>;
+    brcm,pull = <0>;
+   };
+  };
+ };
+
+ fragment@1 {
+  target-path = "/";
+  __overlay__ {
+   pwm_gpio: pwm_gpio {
+    compatible="pwm-gpio";
+    #pwm-cells = <2>;
+    pinctrl-names = "default";
+    pinctrl-0 = <&pwm_gpio_pins>;
+    gpios = <&gpio 18 0>;
+   };
+  };
+ };
+
+ fragment@2 {
+  target-path = "/";
+  __overlay__ {
+   fan0: pwm-fan {
+    compatible = "pwm-fan";
+    #cooling-cells = <2>;
+
+    pwms = <&pwm_gpio 0 20000000 0>;
+
+    cooling-min-state = <0>;
+    cooling-max-state = <4>;
+
+
+    cooling-levels = <0 114 152 204 255>;
+   };
+  };
+ };
+
+ fragment@3 {
+  target = <&cpu_thermal>;
+  __overlay__ {
+
+   polling-delay = <2000>;
+  };
+ };
+
+ fragment@4 {
+  target = <&thermal_trips>;
+  __overlay__ {
+
+   trip0: trip0 {
+    temperature = <55000>;
+    hysteresis = <5000>;
+    type = "active";
+   };
+   trip1: trip1 {
+    temperature = <60000>;
+    hysteresis = <5000>;
+    type = "active";
+   };
+   trip2: trip2 {
+    temperature = <67500>;
+    hysteresis = <5000>;
+    type = "active";
+   };
+   trip3: trip3 {
+    temperature = <75000>;
+    hysteresis = <5000>;
+    type = "active";
+   };
+  };
+ };
+
+ fragment@5 {
+  target = <&cooling_maps>;
+  __overlay__ {
+   map0 {
+    cooling-device = <&fan0 0 1>;
+    trip = <&trip0>;
+   };
+   map1 {
+    cooling-device = <&fan0 1 2>;
+    trip = <&trip1>;
+   };
+   map2 {
+    cooling-device = <&fan0 2 3>;
+    trip = <&trip2>;
+   };
+   map3 {
+    cooling-device = <&fan0 3 4>;
+    trip = <&trip3>;
+   };
+  };
+ };
+
+ __overrides__ {
+  fan_gpio = <&pwm_gpio>,"gpios:4",
+     <&pwm_gpio_pins>,"brcm,pins:0";
+  fan_temp0 = <&trip0>,"temperature:0";
+  fan_temp0_hyst = <&trip0>,"hysteresis:0";
+  fan_temp0_speed = <&fan0>,"cooling-levels:4";
+  fan_temp1 = <&trip1>,"temperature:0";
+  fan_temp1_hyst = <&trip1>,"hysteresis:0";
+  fan_temp1_speed = <&fan0>,"cooling-levels:8";
+  fan_temp2 = <&trip2>,"temperature:0";
+  fan_temp2_hyst = <&trip2>,"hysteresis:0";
+  fan_temp2_speed = <&fan0>,"cooling-levels:12";
+  fan_temp3 = <&trip3>,"temperature:0";
+  fan_temp3_hyst = <&trip3>,"hysteresis:0";
+  fan_temp3_speed = <&fan0>,"cooling-levels:16";
+ };
+
+};

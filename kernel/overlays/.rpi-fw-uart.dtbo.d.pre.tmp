@@ -1,0 +1,2 @@
+rpi-fw-uart-overlay.o: \
+ arch/arm64/boot/dts/overlays/rpi-fw-uart-overlay.dts

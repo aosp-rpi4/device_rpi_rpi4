@@ -1,0 +1,3 @@
+edt-ft5406-overlay.o: arch/arm64/boot/dts/overlays/edt-ft5406-overlay.dts \
+ arch/arm64/boot/dts/overlays/i2c-buses.dtsi \
+ arch/arm64/boot/dts/overlays/edt-ft5406.dtsi

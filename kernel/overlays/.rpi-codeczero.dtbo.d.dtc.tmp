@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/rpi-codeczero.dtbo: arch/arm64/boot/dts/overlays/.rpi-codeczero.dtbo.dts.tmp

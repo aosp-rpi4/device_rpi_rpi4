@@ -1,0 +1,28 @@
+arm_64bit=1
+kernel=kernel8.img
+dtb=bcm2711-rpi-4-b.dtb
+
+# Load Android ramdisk
+initramfs ramdisk.img followkernel
+
+# UART serial console (known-good config).
+enable_uart=1
+dtoverlay=miniuart-bt
+
+# Full KMS display + 3D GPU. Uses the KERNEL-matched vc4-kms-v3d.dtbo shipped by
+# rpi4_boot_package.sh (NOT the firmware's prebuilt one — that scrambles the DT).
+# cma-256 reserves framebuffer memory. Gives /dev/dri/card0 + renderD128.
+dtoverlay=vc4-kms-v3d,cma-256
+max_framebuffers=2
+
+# GPU memory (low is fine under full KMS; the driver manages CMA)
+gpu_mem=76
+
+# HDMI output. Under full KMS the vc4 driver reads EDID and picks the panel's
+# native mode, so we do NOT force hdmi_group/hdmi_mode (forcing 1080p gave
+# "no signal" on the small touch panel). Keep hotplug so output starts even if
+# the panel is slow to assert HPD.
+hdmi_force_hotplug=1
+
+disable_splash=1
+boot_delay=0

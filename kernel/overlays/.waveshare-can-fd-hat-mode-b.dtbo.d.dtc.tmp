@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/waveshare-can-fd-hat-mode-b.dtbo: arch/arm64/boot/dts/overlays/.waveshare-can-fd-hat-mode-b.dtbo.dts.tmp

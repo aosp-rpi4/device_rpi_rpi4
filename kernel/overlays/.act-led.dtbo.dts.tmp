@@ -1,0 +1,23 @@
+# 0 "arch/arm64/boot/dts/overlays/act-led-overlay.dts"
+# 0 "<built-in>"
+# 0 "<command-line>"
+# 1 "arch/arm64/boot/dts/overlays/act-led-overlay.dts"
+/dts-v1/;
+/plugin/;
+# 13 "arch/arm64/boot/dts/overlays/act-led-overlay.dts"
+/{
+ compatible = "brcm,bcm2835";
+
+ fragment@0 {
+  target = <&led_act>;
+  frag0: __overlay__ {
+   gpios = <&gpio 0 0>;
+  };
+ };
+
+ __overrides__ {
+  gpio = <&frag0>,"gpios:4",
+         <&frag0>,"status=okay";
+  activelow = <&frag0>,"gpios:8";
+ };
+};

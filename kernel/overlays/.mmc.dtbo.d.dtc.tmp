@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/mmc.dtbo: arch/arm64/boot/dts/overlays/.mmc.dtbo.dts.tmp

@@ -1,0 +1,1 @@
+cma-overlay.o: arch/arm64/boot/dts/overlays/cma-overlay.dts

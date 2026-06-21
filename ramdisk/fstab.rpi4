@@ -1,0 +1,10 @@
+# Android fstab for Raspberry Pi 4
+# <src>                  <mnt_point>  <type>  <mnt_flags>               <fs_mgr_flags>
+/dev/block/mmcblk0p2     /system      ext4    ro,barrier=1              wait,first_stage_mount
+/dev/block/mmcblk0p3     /vendor      ext4    ro,barrier=1              wait,first_stage_mount
+# /product must be first_stage_mount: SELinux split policy is loaded in first-stage
+# init, and the AAOS car policy (carservice_app domain etc.) lives in
+# /product/etc/selinux. If /product mounts only in second stage, the car policy is
+# never loaded -> com.android.car selinux setcontext fails -> CarService aborts.
+/dev/block/mmcblk0p5     /product     ext4    ro,barrier=1              wait,first_stage_mount
+/dev/block/mmcblk0p6     /data        ext4    noatime,nosuid,nodev      wait,formattable

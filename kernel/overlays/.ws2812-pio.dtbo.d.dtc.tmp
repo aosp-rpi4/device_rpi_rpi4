@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/ws2812-pio.dtbo: arch/arm64/boot/dts/overlays/.ws2812-pio.dtbo.dts.tmp

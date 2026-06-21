@@ -1,0 +1,106 @@
+# 0 "arch/arm64/boot/dts/overlays/pcf857x-overlay.dts"
+# 0 "<built-in>"
+# 0 "<command-line>"
+# 1 "arch/arm64/boot/dts/overlays/pcf857x-overlay.dts"
+
+
+/dts-v1/;
+/plugin/;
+
+# 1 "arch/arm64/boot/dts/overlays/i2c-buses.dtsi" 1
+
+
+/ {
+ compatible = "brcm,bcm2835";
+
+ busfrag: fragment@100 {
+  target = <&i2c_arm>;
+  i2cbus: __overlay__ {
+   status = "okay";
+  };
+ };
+
+ fragment@101 {
+  target = <&i2c0if>;
+
+
+
+  __dormant__ {
+
+   status = "okay";
+  };
+ };
+
+ fragment@102 {
+  target = <&i2c0mux>;
+
+
+
+  __dormant__ {
+
+   status = "okay";
+  };
+ };
+
+ __overrides__ {
+  i2c0 = <&busfrag>,"target:0=",<&i2c0>,
+         <&busfrag>, "target-path?=0",
+         <0>,"+101+102";
+  i2c_csi_dsi = <&busfrag>,"target:0=",<&i2c_csi_dsi>,
+         <&busfrag>, "target-path?=0",
+         <0>,"+101+102";
+  i2c_csi_dsi0 = <&busfrag>, "target:0=",<&i2c_csi_dsi0>,
+          <&busfrag>, "target-path?=0",
+          <0>,"+101+102";
+  i2c1 = <&busfrag>,"target:0=",<&i2c1>,
+         <&busfrag>, "target-path?=0",
+         <0>,"-101-102";
+  i2c2 = <&busfrag>, "target?=0",
+         <&busfrag>, "target-path=i2c2",
+         <0>,"-101-102";
+  i2c3 = <&busfrag>, "target?=0",
+         <&busfrag>, "target-path=i2c3",
+         <0>,"-101-102";
+  i2c4 = <&busfrag>, "target?=0",
+         <&busfrag>, "target-path=i2c4",
+         <0>,"-101-102";
+  i2c5 = <&busfrag>, "target?=0",
+         <&busfrag>, "target-path=i2c5",
+         <0>,"-101-102";
+  i2c6 = <&busfrag>, "target?=0",
+         <&busfrag>, "target-path=i2c6",
+         <0>,"-101-102";
+  i2c-path = <&busfrag>, "target?=0",
+      <&busfrag>, "target-path",
+      <0>,"-101-102";
+ };
+};
+# 7 "arch/arm64/boot/dts/overlays/pcf857x-overlay.dts" 2
+
+/ {
+ compatible = "brcm,bcm2835";
+
+ fragment@0 {
+  target = <&i2cbus>;
+  __overlay__ {
+   #address-cells = <1>;
+   #size-cells = <0>;
+   status = "okay";
+
+   pcf857x: pcf857x@0 {
+    compatible = "";
+    reg = <0x00>;
+    gpio-controller;
+    #gpio-cells = <2>;
+   };
+  };
+ };
+
+ __overrides__ {
+  pcf8574 = <&pcf857x>,"compatible=nxp,pcf8574", <&pcf857x>,"reg:0=0x20";
+  pcf8574a = <&pcf857x>,"compatible=nxp,pcf8574a", <&pcf857x>,"reg:0=0x38";
+  pcf8575 = <&pcf857x>,"compatible=nxp,pcf8575", <&pcf857x>,"reg:0=0x20";
+  pca8574 = <&pcf857x>,"compatible=nxp,pca8574", <&pcf857x>,"reg:0=0x20";
+  addr = <&pcf857x>,"reg:0";
+ };
+};

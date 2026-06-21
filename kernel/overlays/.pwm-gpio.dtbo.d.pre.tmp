@@ -1,0 +1,1 @@
+pwm-gpio-overlay.o: arch/arm64/boot/dts/overlays/pwm-gpio-overlay.dts

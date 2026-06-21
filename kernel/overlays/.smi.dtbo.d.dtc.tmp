@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/smi.dtbo: arch/arm64/boot/dts/overlays/.smi.dtbo.dts.tmp

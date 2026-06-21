@@ -1,0 +1,1 @@
+hy28a-overlay.o: arch/arm64/boot/dts/overlays/hy28a-overlay.dts

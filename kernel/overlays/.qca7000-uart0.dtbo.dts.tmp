@@ -1,0 +1,50 @@
+# 0 "arch/arm64/boot/dts/overlays/qca7000-uart0-overlay.dts"
+# 0 "<built-in>"
+# 0 "<command-line>"
+# 1 "arch/arm64/boot/dts/overlays/qca7000-uart0-overlay.dts"
+
+
+
+/dts-v1/;
+/plugin/;
+
+/ {
+ compatible = "brcm,bcm2835";
+
+ fragment@0 {
+  target = <&uart0>;
+  __overlay__ {
+   pinctrl-names = "default";
+   pinctrl-0 = <&uart0_pins>;
+   status = "okay";
+
+   eth2: qca7000 {
+    compatible = "qca,qca7000";
+    current-speed = <115200>;
+   };
+  };
+ };
+
+ fragment@1 {
+  target = <&gpio>;
+  __overlay__ {
+   uart0_pins: uart0_ovl_pins {
+    brcm,pins = <14 15>;
+    brcm,function = <4>;
+    brcm,pull = <0 2>;
+   };
+  };
+ };
+
+ fragment@2 {
+  target-path = "/aliases";
+  __overlay__ {
+   serial0 = "/soc/serial@7e201000";
+   serial1 = "/soc/serial@7e215040";
+  };
+ };
+
+ __overrides__ {
+  baudrate = <&eth2>, "current-speed:0";
+ };
+};

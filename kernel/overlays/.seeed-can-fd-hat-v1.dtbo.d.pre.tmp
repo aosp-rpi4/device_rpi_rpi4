@@ -1,0 +1,5 @@
+seeed-can-fd-hat-v1-overlay.o: \
+ arch/arm64/boot/dts/overlays/seeed-can-fd-hat-v1-overlay.dts \
+ scripts/dtc/include-prefixes/dt-bindings/gpio/gpio.h \
+ scripts/dtc/include-prefixes/dt-bindings/interrupt-controller/irq.h \
+ scripts/dtc/include-prefixes/dt-bindings/pinctrl/bcm2835.h

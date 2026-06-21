@@ -1,0 +1,5 @@
+vc4-kms-dpi-hyperpixel4sq-overlay.o: \
+ arch/arm64/boot/dts/overlays/vc4-kms-dpi-hyperpixel4sq-overlay.dts \
+ arch/arm64/boot/dts/overlays/vc4-kms-dpi-hyperpixel.dtsi \
+ scripts/dtc/include-prefixes/dt-bindings/gpio/gpio.h \
+ scripts/dtc/include-prefixes/dt-bindings/pinctrl/bcm2835.h

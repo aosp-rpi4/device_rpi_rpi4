@@ -1,0 +1,11 @@
+# RPi4 vendor HAL service binaries. Without these, the executables get the
+# generic vendor_file label and init refuses to start them ("incorrect label or
+# no domain transition") — enforced even in permissive mode. Labeling the exec
+# file lets init auto-transition into the standard HAL domain (the
+# *_exec -> domain transition is defined in system/sepolicy).
+
+# drm_hwcomposer HWC3 composer service
+/vendor/bin/hw/android\.hardware\.composer\.hwc3-service\.drm    u:object_r:hal_graphics_composer_default_exec:s0
+
+# minigbm gbm_mesa AIDL gralloc allocator service
+/vendor/bin/hw/android\.hardware\.graphics\.allocator-service\.minigbm    u:object_r:hal_graphics_allocator_default_exec:s0

@@ -1,0 +1,120 @@
+# 0 "arch/arm64/boot/dts/overlays/vc4-kms-dpi-hyperpixel2r-overlay.dts"
+# 0 "<built-in>"
+# 0 "<command-line>"
+# 1 "arch/arm64/boot/dts/overlays/vc4-kms-dpi-hyperpixel2r-overlay.dts"
+
+
+
+
+# 1 "./scripts/dtc/include-prefixes/dt-bindings/gpio/gpio.h" 1
+# 6 "arch/arm64/boot/dts/overlays/vc4-kms-dpi-hyperpixel2r-overlay.dts" 2
+# 1 "./scripts/dtc/include-prefixes/dt-bindings/pinctrl/bcm2835.h" 1
+# 7 "arch/arm64/boot/dts/overlays/vc4-kms-dpi-hyperpixel2r-overlay.dts" 2
+
+/dts-v1/;
+/plugin/;
+
+/ {
+ compatible = "brcm,bcm2835";
+
+ fragment@0 {
+  target-path = "/";
+  __overlay__ {
+   spi {
+    compatible = "spi-gpio";
+    #address-cells = <1>;
+    #size-cells = <0>;
+    pinctrl-0 = <&spi_pins>;
+    pinctrl-names = "default";
+
+    sck-gpios = <&gpio 11 0>;
+    mosi-gpios = <&gpio 10 0>;
+    cs-gpios = <&gpio 18 1>;
+    num-chipselects = <1>;
+
+    panel: display@0 {
+     compatible = "pimoroni,hyperpixel2round";
+     reg = <0>;
+
+     spi-max-frequency = <100000>;
+     backlight = <&backlight>;
+     rotation = <0>;
+
+     port {
+      panel_in: endpoint {
+       remote-endpoint = <&dpi_out>;
+      };
+     };
+    };
+   };
+
+   backlight: backlight {
+    compatible = "gpio-backlight";
+    gpios = <&gpio 19 0>;
+   };
+  };
+ };
+
+ fragment@1 {
+  target = <&dpi>;
+  __overlay__ {
+   status = "okay";
+
+   pinctrl-names = "default";
+   pinctrl-0 = <&dpi_18bit_cpadhi_gpio0>;
+
+   port {
+    dpi_out: endpoint {
+     remote-endpoint = <&panel_in>;
+    };
+   };
+  };
+ };
+
+ fragment@2 {
+  target = <&gpio>;
+  __overlay__ {
+   spi_pins: hyperpixel4_spi_pins {
+    brcm,pins = <27 18 26>;
+    brcm,pull = <2 2 0>;
+    brcm,function = <0>;
+   };
+  };
+ };
+
+ fragment@3 {
+  target-path = "/";
+  __overlay__ {
+   i2c_gpio: i2c@0 {
+    compatible = "i2c-gpio";
+    status = "disabled";
+
+    gpios = <&gpio 10 0
+      &gpio 11 0>;
+    i2c-gpio,delay-us = <4>;
+    #address-cells = <1>;
+    #size-cells = <0>;
+
+    polytouch: edt-ft5x06@15 {
+     #address-cells = <1>;
+     #size-cells = <0>;
+     compatible = "edt,edt-ft5406";
+     reg = <0x15>;
+     interrupt-parent = <&gpio>;
+     interrupts = <27 0x02>;
+     touchscreen-size-x = <240>;
+     touchscreen-size-y = <240>;
+    };
+   };
+  };
+ };
+
+ __overrides__ {
+  disable-touch = <0>,"-3";
+  touchscreen-inverted-x = <&polytouch>,"touchscreen-inverted-x?";
+  touchscreen-inverted-y = <&polytouch>,"touchscreen-inverted-y!";
+  touchscreen-swapped-x-y = <&polytouch>,"touchscreen-swapped-x-y!";
+  rotate = <&panel>, "rotation:0";
+ };
+
+};

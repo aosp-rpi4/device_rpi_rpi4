@@ -1,0 +1,1 @@
+gpio-led-overlay.o: arch/arm64/boot/dts/overlays/gpio-led-overlay.dts

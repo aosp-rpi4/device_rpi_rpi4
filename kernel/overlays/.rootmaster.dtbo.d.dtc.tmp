@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/rootmaster.dtbo: arch/arm64/boot/dts/overlays/.rootmaster.dtbo.dts.tmp

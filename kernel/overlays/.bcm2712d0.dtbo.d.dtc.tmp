@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/bcm2712d0.dtbo: arch/arm64/boot/dts/overlays/.bcm2712d0.dtbo.dts.tmp

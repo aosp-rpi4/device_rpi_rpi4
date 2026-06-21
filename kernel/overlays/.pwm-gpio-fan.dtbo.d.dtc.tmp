@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/pwm-gpio-fan.dtbo: arch/arm64/boot/dts/overlays/.pwm-gpio-fan.dtbo.dts.tmp

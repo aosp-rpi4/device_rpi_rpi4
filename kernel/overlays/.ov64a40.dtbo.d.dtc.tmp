@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/ov64a40.dtbo: arch/arm64/boot/dts/overlays/.ov64a40.dtbo.dts.tmp

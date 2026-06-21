@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/imx708.dtbo: arch/arm64/boot/dts/overlays/.imx708.dtbo.dts.tmp

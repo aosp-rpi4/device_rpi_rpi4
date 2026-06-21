@@ -1,0 +1,2 @@
+hifiberry-adc8x-overlay.o: \
+ arch/arm64/boot/dts/overlays/hifiberry-adc8x-overlay.dts

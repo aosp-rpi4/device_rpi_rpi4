@@ -1,0 +1,1 @@
+rpi-tv-overlay.o: arch/arm64/boot/dts/overlays/rpi-tv-overlay.dts

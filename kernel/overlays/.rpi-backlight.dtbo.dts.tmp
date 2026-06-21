@@ -1,0 +1,25 @@
+# 0 "arch/arm64/boot/dts/overlays/rpi-backlight-overlay.dts"
+# 0 "<built-in>"
+# 0 "<command-line>"
+# 1 "arch/arm64/boot/dts/overlays/rpi-backlight-overlay.dts"
+
+
+
+
+/dts-v1/;
+/plugin/;
+
+/ {
+ compatible = "brcm,bcm2835";
+
+ fragment@0 {
+  target-path = "/";
+  __overlay__ {
+   rpi_backlight: rpi_backlight {
+    compatible = "raspberrypi,rpi-backlight";
+    firmware = <&firmware>;
+    status = "okay";
+   };
+  };
+ };
+};

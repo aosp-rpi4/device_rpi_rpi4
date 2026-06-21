@@ -1,0 +1,2 @@
+mcp23017-overlay.o: arch/arm64/boot/dts/overlays/mcp23017-overlay.dts \
+ arch/arm64/boot/dts/overlays/i2c-buses.dtsi

@@ -1,0 +1,2 @@
+rpi-dacpro-overlay.o: arch/arm64/boot/dts/overlays/rpi-dacpro-overlay.dts \
+ arch/arm64/boot/dts/overlays/iqaudio-dacplus-overlay.dts

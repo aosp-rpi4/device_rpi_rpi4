@@ -1,0 +1,2 @@
+i2s-master-dac-overlay.o: \
+ arch/arm64/boot/dts/overlays/i2s-master-dac-overlay.dts

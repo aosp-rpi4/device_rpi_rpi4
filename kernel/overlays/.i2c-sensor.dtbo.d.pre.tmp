@@ -1,0 +1,4 @@
+i2c-sensor-overlay.o: arch/arm64/boot/dts/overlays/i2c-sensor-overlay.dts \
+ arch/arm64/boot/dts/overlays/i2c-sensor-common.dtsi \
+ scripts/dtc/include-prefixes/dt-bindings/gpio/gpio.h \
+ arch/arm64/boot/dts/overlays/i2c-buses.dtsi

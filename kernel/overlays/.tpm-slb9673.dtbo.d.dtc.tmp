@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/tpm-slb9673.dtbo: arch/arm64/boot/dts/overlays/.tpm-slb9673.dtbo.dts.tmp

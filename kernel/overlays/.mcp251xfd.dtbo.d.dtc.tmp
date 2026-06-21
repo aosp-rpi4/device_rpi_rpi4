@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/mcp251xfd.dtbo: arch/arm64/boot/dts/overlays/.mcp251xfd.dtbo.dts.tmp

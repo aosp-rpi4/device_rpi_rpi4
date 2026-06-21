@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/sunfounder-pironman5.dtbo: arch/arm64/boot/dts/overlays/.sunfounder-pironman5.dtbo.dts.tmp

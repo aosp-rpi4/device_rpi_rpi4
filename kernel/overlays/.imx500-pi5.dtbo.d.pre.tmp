@@ -1,0 +1,4 @@
+imx500-pi5-overlay.o: arch/arm64/boot/dts/overlays/imx500-pi5-overlay.dts \
+ scripts/dtc/include-prefixes/dt-bindings/gpio/gpio.h \
+ arch/arm64/boot/dts/overlays/imx500.dtsi \
+ arch/arm64/boot/dts/overlays/rpi-rp2040-gpio-bridge.dtsi

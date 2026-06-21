@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest version="2.0" type="device" target-level="8">
+
+    <!-- android.hardware.graphics.allocator is declared by the minigbm
+         allocator service's own VINTF fragment (allocator.xml); do not
+         duplicate it here or check_vintf fails with a Conflicting FqInstance.
+         android.hardware.memtrack is likewise declared by the memtrack example
+         HAL's own fragment (memtrack-default.xml) — added in aosp_rpi4.mk — so it
+         is NOT declared here for the same reason. -->
+
+    <!-- android.hardware.health is declared by the health example HAL's own
+         fragment (android.hardware.health-service.example.xml, v4), added via
+         aosp_rpi4.mk; not declared here. -->
+
+    <!-- android.hardware.power is declared by the power example HAL's own fragment
+         (power-default.xml), added via aosp_rpi4.mk; not declared here. -->
+
+    <sepolicy>
+        <version>202604</version>
+    </sepolicy>
+
+</manifest>

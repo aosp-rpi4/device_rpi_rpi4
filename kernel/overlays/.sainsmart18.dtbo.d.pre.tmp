@@ -1,0 +1,2 @@
+sainsmart18-overlay.o: \
+ arch/arm64/boot/dts/overlays/sainsmart18-overlay.dts

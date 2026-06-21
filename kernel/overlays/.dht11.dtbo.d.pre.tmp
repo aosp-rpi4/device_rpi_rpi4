@@ -1,0 +1,1 @@
+dht11-overlay.o: arch/arm64/boot/dts/overlays/dht11-overlay.dts

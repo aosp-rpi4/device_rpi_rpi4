@@ -1,0 +1,55 @@
+# 0 "arch/arm64/boot/dts/overlays/spi0-1cs-inverted-overlay.dts"
+# 0 "<built-in>"
+# 0 "<command-line>"
+# 1 "arch/arm64/boot/dts/overlays/spi0-1cs-inverted-overlay.dts"
+/dts-v1/;
+/plugin/;
+# 13 "arch/arm64/boot/dts/overlays/spi0-1cs-inverted-overlay.dts"
+# 1 "./scripts/dtc/include-prefixes/dt-bindings/gpio/gpio.h" 1
+# 14 "arch/arm64/boot/dts/overlays/spi0-1cs-inverted-overlay.dts" 2
+
+/ {
+ compatible = "brcm,bcm2835";
+
+ fragment@0 {
+  target = <&spi0_cs_pins>;
+  frag0: __overlay__ {
+   brcm,pins = <8>;
+  };
+ };
+
+ fragment@1 {
+  target = <&spi0>;
+  frag1: __overlay__ {
+   cs-gpios = <&gpio 8 0>;
+   status = "okay";
+  };
+ };
+
+ fragment@2 {
+  target = <&spidev1>;
+  __overlay__ {
+   status = "disabled";
+  };
+ };
+
+ fragment@3 {
+  target = <&spi0_pins>;
+  __dormant__ {
+   brcm,pins = <10 11>;
+  };
+ };
+
+ fragment@4 {
+  target = <&spidev0>;
+  __overlay__ {
+   spi-cs-high;
+  };
+ };
+
+ __overrides__ {
+  cs0_pin = <&frag0>,"brcm,pins:0",
+      <&frag1>,"cs-gpios:4";
+  no_miso = <0>,"=3";
+ };
+};

@@ -1,0 +1,1 @@
+irs1125-overlay.o: arch/arm64/boot/dts/overlays/irs1125-overlay.dts

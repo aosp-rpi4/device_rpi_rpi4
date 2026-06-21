@@ -1,0 +1,1 @@
+cap1106-overlay.o: arch/arm64/boot/dts/overlays/cap1106-overlay.dts

@@ -1,0 +1,1 @@
+hat_map.o: arch/arm64/boot/dts/overlays/hat_map.dts

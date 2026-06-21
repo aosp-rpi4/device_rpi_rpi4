@@ -1,0 +1,1 @@
+uart4-overlay.o: arch/arm64/boot/dts/overlays/uart4-overlay.dts

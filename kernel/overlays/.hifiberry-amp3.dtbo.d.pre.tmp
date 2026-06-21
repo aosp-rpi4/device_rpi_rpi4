@@ -1,0 +1,4 @@
+hifiberry-amp3-overlay.o: \
+ arch/arm64/boot/dts/overlays/hifiberry-amp3-overlay.dts \
+ scripts/dtc/include-prefixes/dt-bindings/pinctrl/bcm2835.h \
+ scripts/dtc/include-prefixes/dt-bindings/gpio/gpio.h

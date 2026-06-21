@@ -1,0 +1,1 @@
+ads7846-overlay.o: arch/arm64/boot/dts/overlays/ads7846-overlay.dts

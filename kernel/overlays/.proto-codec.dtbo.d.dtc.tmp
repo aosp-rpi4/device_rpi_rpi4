@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/proto-codec.dtbo: arch/arm64/boot/dts/overlays/.proto-codec.dtbo.dts.tmp

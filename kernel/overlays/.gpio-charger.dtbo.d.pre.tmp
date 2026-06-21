@@ -1,0 +1,2 @@
+gpio-charger-overlay.o: \
+ arch/arm64/boot/dts/overlays/gpio-charger-overlay.dts

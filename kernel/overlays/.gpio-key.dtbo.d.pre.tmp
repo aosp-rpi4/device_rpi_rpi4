@@ -1,0 +1,1 @@
+gpio-key-overlay.o: arch/arm64/boot/dts/overlays/gpio-key-overlay.dts

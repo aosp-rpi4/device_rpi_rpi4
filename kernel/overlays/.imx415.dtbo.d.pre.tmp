@@ -1,0 +1,3 @@
+imx415-overlay.o: arch/arm64/boot/dts/overlays/imx415-overlay.dts \
+ scripts/dtc/include-prefixes/dt-bindings/gpio/gpio.h \
+ arch/arm64/boot/dts/overlays/imx415.dtsi

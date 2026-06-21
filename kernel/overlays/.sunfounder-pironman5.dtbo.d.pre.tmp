@@ -1,0 +1,2 @@
+sunfounder-pironman5-overlay.o: \
+ arch/arm64/boot/dts/overlays/sunfounder-pironman5-overlay.dts

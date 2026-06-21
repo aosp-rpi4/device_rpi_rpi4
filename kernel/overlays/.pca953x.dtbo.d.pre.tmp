@@ -1,0 +1,2 @@
+pca953x-overlay.o: arch/arm64/boot/dts/overlays/pca953x-overlay.dts \
+ arch/arm64/boot/dts/overlays/i2c-buses.dtsi

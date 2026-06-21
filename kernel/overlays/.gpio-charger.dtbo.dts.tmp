@@ -1,0 +1,46 @@
+# 0 "arch/arm64/boot/dts/overlays/gpio-charger-overlay.dts"
+# 0 "<built-in>"
+# 0 "<command-line>"
+# 1 "arch/arm64/boot/dts/overlays/gpio-charger-overlay.dts"
+
+/dts-v1/;
+/plugin/;
+
+/ {
+ compatible = "brcm,bcm2835";
+
+ fragment@0 {
+
+  target = <&gpio>;
+  __overlay__ {
+   pin_state: charger_pins@0 {
+    brcm,pins = <4>;
+    brcm,function = <0>;
+    brcm,pull = <1>;
+   };
+  };
+ };
+ fragment@1 {
+  target-path = "/";
+  __overlay__ {
+   charger: charger@0 {
+    compatible = "gpio-charger";
+    pinctrl-0 = <&pin_state>;
+    status = "okay";
+    gpios = <&gpio 4 0>;
+    charger-type = "mains";
+   };
+  };
+ };
+
+ __overrides__ {
+  gpio = <&charger>,"reg:0",
+        <&charger>,"gpios:4",
+        <&pin_state>,"reg:0",
+        <&pin_state>,"brcm,pins:0";
+  type = <&charger>,"charger-type";
+  gpio_pull = <&pin_state>,"brcm,pull:0";
+  active_low = <&charger>,"gpios:8";
+ };
+
+};

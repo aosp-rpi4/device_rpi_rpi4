@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/i2s-master-dac.dtbo: arch/arm64/boot/dts/overlays/.i2s-master-dac.dtbo.dts.tmp

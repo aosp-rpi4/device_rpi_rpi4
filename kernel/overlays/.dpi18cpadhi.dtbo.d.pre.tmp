@@ -1,0 +1,2 @@
+dpi18cpadhi-overlay.o: \
+ arch/arm64/boot/dts/overlays/dpi18cpadhi-overlay.dts

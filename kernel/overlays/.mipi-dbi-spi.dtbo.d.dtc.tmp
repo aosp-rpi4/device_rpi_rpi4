@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/mipi-dbi-spi.dtbo: arch/arm64/boot/dts/overlays/.mipi-dbi-spi.dtbo.dts.tmp

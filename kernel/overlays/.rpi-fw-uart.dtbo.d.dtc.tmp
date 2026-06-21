@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/rpi-fw-uart.dtbo: arch/arm64/boot/dts/overlays/.rpi-fw-uart.dtbo.dts.tmp

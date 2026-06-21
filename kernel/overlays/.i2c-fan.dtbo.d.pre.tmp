@@ -1,0 +1,3 @@
+i2c-fan-overlay.o: arch/arm64/boot/dts/overlays/i2c-fan-overlay.dts \
+ scripts/dtc/include-prefixes/dt-bindings/thermal/thermal.h \
+ arch/arm64/boot/dts/overlays/i2c-buses.dtsi

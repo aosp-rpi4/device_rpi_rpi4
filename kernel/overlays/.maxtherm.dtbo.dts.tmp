@@ -1,0 +1,191 @@
+# 0 "arch/arm64/boot/dts/overlays/maxtherm-overlay.dts"
+# 0 "<built-in>"
+# 0 "<command-line>"
+# 1 "arch/arm64/boot/dts/overlays/maxtherm-overlay.dts"
+
+
+
+
+/dts-v1/;
+/plugin/;
+
+# 1 "./scripts/dtc/include-prefixes/dt-bindings/iio/temperature/thermocouple.h" 1
+# 9 "arch/arm64/boot/dts/overlays/maxtherm-overlay.dts" 2
+
+/ {
+ compatible = "brcm,bcm2835";
+
+ fragment@0 {
+  target = <&spidev0>;
+  __dormant__ {
+   status = "disabled";
+  };
+ };
+
+ fragment@1 {
+  target = <&spidev1>;
+  __dormant__ {
+   status = "disabled";
+  };
+ };
+
+ fragment@2 {
+  target-path = "spi1/spidev@0";
+  __dormant__ {
+   status = "disabled";
+  };
+ };
+
+ fragment@3 {
+  target-path = "spi1/spidev@1";
+  __dormant__ {
+   status = "disabled";
+  };
+ };
+
+ fragment@4 {
+  target-path = "spi1/spidev@2";
+  __dormant__ {
+   status = "disabled";
+  };
+ };
+
+ fragment@5 {
+  target-path = "spi2/spidev@0";
+  __dormant__ {
+   status = "disabled";
+  };
+ };
+
+ fragment@6 {
+  target-path = "spi2/spidev@1";
+  __dormant__ {
+   status = "disabled";
+  };
+ };
+
+ fragment@7 {
+  target-path = "spi2/spidev@2";
+  __dormant__ {
+   status = "disabled";
+  };
+ };
+
+ maxfrag: fragment@8 {
+  target = <&spi0>;
+  __overlay__ {
+   status = "okay";
+   #address-cells = <1>;
+   #size-cells = <0>;
+
+   max: maxtherm@0 {
+    compatible = "maxim,max6675";
+    reg = <0>;
+    spi-max-frequency = <500000>;
+   };
+  };
+ };
+
+ fragment@9 {
+  target = <&max>;
+  __dormant__ {
+   compatible = "maxim,max31855e", "maxim,max31855";
+  };
+ };
+
+ fragment@10 {
+  target = <&max>;
+  __dormant__ {
+   compatible = "maxim,max31855j", "maxim,max31855";
+  };
+ };
+
+ fragment@11 {
+  target = <&max>;
+  __dormant__ {
+   compatible = "maxim,max31855k", "maxim,max31855";
+  };
+ };
+
+ fragment@12 {
+  target = <&max>;
+  __dormant__ {
+   compatible = "maxim,max31855n", "maxim,max31855";
+  };
+ };
+
+ fragment@13 {
+  target = <&max>;
+  __dormant__ {
+   compatible = "maxim,max31855r", "maxim,max31855";
+  };
+ };
+
+ fragment@14 {
+  target = <&max>;
+  __dormant__ {
+   compatible = "maxim,max31855s", "maxim,max31855";
+  };
+ };
+
+ fragment@15 {
+  target = <&max>;
+  __dormant__ {
+   compatible = "maxim,max31855t", "maxim,max31855";
+  };
+ };
+
+ fragment@16 {
+  target = <&max>;
+  __dormant__ {
+   compatible = "maxim,max31856";
+   spi-cpha;
+   thermocouple-type = <0x03>;
+  };
+ };
+
+ __overrides__ {
+  spi0-0 = <0>, "+0",
+    <&maxfrag>,"target:0=",<&spi0>,
+    <&max>,"reg:0=0";
+  spi0-1 = <0>, "+1",
+    <&maxfrag>,"target:0=",<&spi0>,
+    <&max>,"reg:0=1";
+  spi1-0 = <0>, "+2",
+    <&maxfrag>,"target:0=",<&spi1>,
+    <&max>,"reg:0=0";
+  spi1-1 = <0>, "+3",
+    <&maxfrag>,"target:0=",<&spi1>,
+    <&max>,"reg:0=1";
+  spi1-2 = <0>, "+4",
+    <&maxfrag>,"target:0=",<&spi1>,
+    <&max>,"reg:0=2";
+  spi2-0 = <0>, "+5",
+    <&maxfrag>,"target:0=",<&spi2>,
+    <&max>,"reg:0=0";
+  spi2-1 = <0>, "+6",
+    <&maxfrag>,"target:0=",<&spi2>,
+    <&max>,"reg:0=1";
+  spi2-2 = <0>, "+7",
+    <&maxfrag>,"target:0=",<&spi2>,
+    <&max>,"reg:0=2";
+  max6675 = <&max>,"compatible=maxim,max6675";
+  max31855 = <&max>,"compatible=maxim,max31855";
+  max31855e = <0>,"+9";
+  max31855j = <0>,"+10";
+  max31855k = <0>,"+11";
+  max31855n = <0>,"+12";
+  max31855r = <0>,"+13";
+  max31855s = <0>,"+14";
+  max31855t = <0>,"+15";
+  max31856 = <0>,"+16";
+  type_b = <&max>,"thermocouple-type:0=",<0x00>;
+  type_e = <&max>,"thermocouple-type:0=",<0x01>;
+  type_j = <&max>,"thermocouple-type:0=",<0x02>;
+  type_k = <&max>,"thermocouple-type:0=",<0x03>;
+  type_n = <&max>,"thermocouple-type:0=",<0x04>;
+  type_r = <&max>,"thermocouple-type:0=",<0x05>;
+  type_s = <&max>,"thermocouple-type:0=",<0x06>;
+  type_t = <&max>,"thermocouple-type:0=",<0x07>;
+ };
+};

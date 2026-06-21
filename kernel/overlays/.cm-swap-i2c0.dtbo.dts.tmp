@@ -1,0 +1,32 @@
+# 0 "arch/arm64/boot/dts/overlays/cm-swap-i2c0-overlay.dts"
+# 0 "<built-in>"
+# 0 "<command-line>"
+# 1 "arch/arm64/boot/dts/overlays/cm-swap-i2c0-overlay.dts"
+
+
+/dts-v1/;
+/plugin/;
+
+# 1 "./scripts/dtc/include-prefixes/dt-bindings/gpio/gpio.h" 1
+# 7 "arch/arm64/boot/dts/overlays/cm-swap-i2c0-overlay.dts" 2
+
+/{
+ compatible = "brcm,bcm2835";
+
+ fragment@0 {
+  target = <&i2c0mux>;
+  i2c0mux_frag: __overlay__ {
+   pinctrl-0 = <&i2c0_gpio28>;
+   pinctrl-1 = <&i2c0_gpio0>;
+  };
+ };
+
+ __overrides__ {
+  i2c0-gpio0 = <&i2c0mux_frag>, "pinctrl-0:0=",<&i2c0_gpio0>;
+  i2c0-gpio28 = <&i2c0mux_frag>, "pinctrl-0:0=",<&i2c0_gpio28>;
+  i2c0-gpio44 = <&i2c0mux_frag>, "pinctrl-0:0=",<&i2c0_gpio44>;
+  i2c10-gpio0 = <&i2c0mux_frag>, "pinctrl-1:0=",<&i2c0_gpio0>;
+  i2c10-gpio28 = <&i2c0mux_frag>, "pinctrl-1:0=",<&i2c0_gpio28>;
+  i2c10-gpio44 = <&i2c0mux_frag>, "pinctrl-1:0=",<&i2c0_gpio44>;
+ };
+};

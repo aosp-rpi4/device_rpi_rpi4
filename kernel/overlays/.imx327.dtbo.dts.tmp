@@ -1,0 +1,174 @@
+# 0 "arch/arm64/boot/dts/overlays/imx327-overlay.dts"
+# 0 "<built-in>"
+# 0 "<command-line>"
+# 1 "arch/arm64/boot/dts/overlays/imx327-overlay.dts"
+
+
+/dts-v1/;
+/plugin/;
+
+# 1 "./scripts/dtc/include-prefixes/dt-bindings/gpio/gpio.h" 1
+# 7 "arch/arm64/boot/dts/overlays/imx327-overlay.dts" 2
+# 1 "arch/arm64/boot/dts/overlays/imx290_327-overlay.dtsi" 1
+
+
+
+
+
+
+/{
+ compatible = "brcm,bcm2835";
+
+ i2c_frag: fragment@0 {
+  target = <&i2c_csi_dsi>;
+  __overlay__ {
+   #address-cells = <1>;
+   #size-cells = <0>;
+   status = "okay";
+
+# 1 "arch/arm64/boot/dts/overlays/imx290_327.dtsi" 1
+
+
+cam_node: imx290@1a {
+ compatible = "sony,imx290lqr";
+ reg = <0x1a>;
+ status = "disabled";
+
+ clocks = <&cam1_clk>;
+ clock-names = "xclk";
+ clock-frequency = <37125000>;
+
+ rotation = <0>;
+ orientation = <2>;
+
+ vdda-supply = <&cam1_reg>;
+ vdddo-supply = <&cam_dummy_reg>;
+ vddd-supply = <&cam_dummy_reg>;
+
+ port {
+  cam_endpoint: endpoint {
+   clock-lanes = <0>;
+  };
+ };
+};
+# 18 "arch/arm64/boot/dts/overlays/imx290_327-overlay.dtsi" 2
+  };
+ };
+
+ csi_frag: fragment@1 {
+  target = <&csi1>;
+  csi: __overlay__ {
+   status = "okay";
+   brcm,media-controller;
+
+   port {
+    csi_ep: endpoint {
+     remote-endpoint = <&cam_endpoint>;
+    };
+   };
+  };
+ };
+
+ fragment@2 {
+  target = <&i2c0if>;
+  __overlay__ {
+   status = "okay";
+  };
+ };
+
+ clk_frag: fragment@3 {
+  target = <&cam1_clk>;
+  cam_clk: __overlay__ {
+   status = "okay";
+   clock-frequency = <37125000>;
+  };
+ };
+
+ fragment@4 {
+  target = <&i2c0mux>;
+  __overlay__ {
+   status = "okay";
+  };
+ };
+
+ fragment@6 {
+  target = <&cam_endpoint>;
+  __overlay__ {
+   data-lanes = <1 2>;
+   link-frequencies =
+    /bits/ 64 <445500000 297000000>;
+  };
+ };
+
+ fragment@7 {
+  target = <&cam_endpoint>;
+  __dormant__ {
+   data-lanes = <1 2 3 4>;
+   link-frequencies =
+    /bits/ 64 <222750000 148500000>;
+  };
+ };
+
+ fragment@8 {
+  target = <&csi_ep>;
+  __overlay__ {
+   data-lanes = <1 2>;
+  };
+ };
+
+ fragment@9 {
+  target = <&csi_ep>;
+  __dormant__ {
+   data-lanes = <1 2 3 4>;
+  };
+ };
+
+ __overrides__ {
+  4lane = <0>, "-6+7-8+9";
+  clock-frequency = <&cam_clk>,"clock-frequency:0",
+      <&cam_node>,"clock-frequency:0";
+  rotation = <&cam_node>,"rotation:0";
+  orientation = <&cam_node>,"orientation:0";
+  media-controller = <&csi>,"brcm,media-controller?";
+  cam0 = <&i2c_frag>, "target:0=",<&i2c_csi_dsi0>,
+         <&csi_frag>, "target:0=",<&csi0>,
+         <&clk_frag>, "target:0=",<&cam0_clk>,
+         <&cam_node>, "clocks:0=",<&cam0_clk>,
+         <&cam_node>, "vdda-supply:0=",<&cam0_reg>;
+ };
+};
+
+&cam_node {
+ status = "okay";
+};
+
+&cam_endpoint {
+ remote-endpoint = <&csi_ep>;
+};
+# 8 "arch/arm64/boot/dts/overlays/imx327-overlay.dts" 2
+
+/{
+ compatible = "brcm,bcm2835";
+
+
+
+
+ fragment@101 {
+  target = <&cam_node>;
+  __overlay__ {
+   compatible = "sony,imx327lqr";
+  };
+ };
+
+ fragment@102 {
+  target = <&cam_node>;
+  __dormant__ {
+
+   compatible = "sony,imx290llr";
+  };
+ };
+
+ __overrides__ {
+  mono = <0>, "-101+102";
+ };
+};

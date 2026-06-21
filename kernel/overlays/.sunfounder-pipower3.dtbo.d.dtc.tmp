@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/sunfounder-pipower3.dtbo: arch/arm64/boot/dts/overlays/.sunfounder-pipower3.dtbo.dts.tmp

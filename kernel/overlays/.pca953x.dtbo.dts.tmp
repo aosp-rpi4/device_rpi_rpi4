@@ -1,0 +1,131 @@
+# 0 "arch/arm64/boot/dts/overlays/pca953x-overlay.dts"
+# 0 "<built-in>"
+# 0 "<command-line>"
+# 1 "arch/arm64/boot/dts/overlays/pca953x-overlay.dts"
+
+/dts-v1/;
+/plugin/;
+
+# 1 "arch/arm64/boot/dts/overlays/i2c-buses.dtsi" 1
+
+
+/ {
+ compatible = "brcm,bcm2835";
+
+ busfrag: fragment@100 {
+  target = <&i2c_arm>;
+  i2cbus: __overlay__ {
+   status = "okay";
+  };
+ };
+
+ fragment@101 {
+  target = <&i2c0if>;
+
+
+
+  __dormant__ {
+
+   status = "okay";
+  };
+ };
+
+ fragment@102 {
+  target = <&i2c0mux>;
+
+
+
+  __dormant__ {
+
+   status = "okay";
+  };
+ };
+
+ __overrides__ {
+  i2c0 = <&busfrag>,"target:0=",<&i2c0>,
+         <&busfrag>, "target-path?=0",
+         <0>,"+101+102";
+  i2c_csi_dsi = <&busfrag>,"target:0=",<&i2c_csi_dsi>,
+         <&busfrag>, "target-path?=0",
+         <0>,"+101+102";
+  i2c_csi_dsi0 = <&busfrag>, "target:0=",<&i2c_csi_dsi0>,
+          <&busfrag>, "target-path?=0",
+          <0>,"+101+102";
+  i2c1 = <&busfrag>,"target:0=",<&i2c1>,
+         <&busfrag>, "target-path?=0",
+         <0>,"-101-102";
+  i2c2 = <&busfrag>, "target?=0",
+         <&busfrag>, "target-path=i2c2",
+         <0>,"-101-102";
+  i2c3 = <&busfrag>, "target?=0",
+         <&busfrag>, "target-path=i2c3",
+         <0>,"-101-102";
+  i2c4 = <&busfrag>, "target?=0",
+         <&busfrag>, "target-path=i2c4",
+         <0>,"-101-102";
+  i2c5 = <&busfrag>, "target?=0",
+         <&busfrag>, "target-path=i2c5",
+         <0>,"-101-102";
+  i2c6 = <&busfrag>, "target?=0",
+         <&busfrag>, "target-path=i2c6",
+         <0>,"-101-102";
+  i2c-path = <&busfrag>, "target?=0",
+      <&busfrag>, "target-path",
+      <0>,"-101-102";
+ };
+};
+# 6 "arch/arm64/boot/dts/overlays/pca953x-overlay.dts" 2
+
+/{
+ compatible = "brcm,bcm2835";
+
+ fragment@0 {
+  target = <&i2cbus>;
+  __overlay__ {
+   #address-cells = <1>;
+   #size-cells = <0>;
+   status = "okay";
+
+   pca: pca@20 {
+    compatible = "nxp,pca9534";
+    reg = <0x20>;
+    gpio-controller;
+    #gpio-cells = <2>;
+   };
+  };
+ };
+
+ __overrides__ {
+  addr = <&pca>,"reg:0";
+  pca6416 = <&pca>,"compatible=nxp,pca6416";
+  pca9505 = <&pca>,"compatible=nxp,pca9505";
+  pca9535 = <&pca>,"compatible=nxp,pca9535";
+  pca9536 = <&pca>,"compatible=nxp,pca9536";
+  pca9537 = <&pca>,"compatible=nxp,pca9537";
+  pca9538 = <&pca>,"compatible=nxp,pca9538";
+  pca9539 = <&pca>,"compatible=nxp,pca9539";
+  pca9554 = <&pca>,"compatible=nxp,pca9554";
+  pca9555 = <&pca>,"compatible=nxp,pca9555";
+  pca9556 = <&pca>,"compatible=nxp,pca9556";
+  pca9557 = <&pca>,"compatible=nxp,pca9557";
+  pca9574 = <&pca>,"compatible=nxp,pca9574";
+  pca9575 = <&pca>,"compatible=nxp,pca9575";
+  pca9698 = <&pca>,"compatible=nxp,pca9698";
+  pcal6416 = <&pca>,"compatible=nxp,pcal6416";
+  pcal6524 = <&pca>,"compatible=nxp,pcal6524";
+  pcal9555a = <&pca>,"compatible=nxp,pcal9555a";
+  max7310 = <&pca>,"compatible=maxim,max7310";
+  max7312 = <&pca>,"compatible=maxim,max7312";
+  max7313 = <&pca>,"compatible=maxim,max7313";
+  max7315 = <&pca>,"compatible=maxim,max7315";
+  pca6107 = <&pca>,"compatible=ti,pca6107";
+  tca6408 = <&pca>,"compatible=ti,tca6408";
+  tca6416 = <&pca>,"compatible=ti,tca6416";
+  tca6424 = <&pca>,"compatible=ti,tca6424";
+  tca9539 = <&pca>,"compatible=ti,tca9539";
+  tca9554 = <&pca>,"compatible=ti,tca9554";
+  cat9554 = <&pca>,"compatible=onnn,cat9554";
+  pca9654 = <&pca>,"compatible=onnn,pca9654";
+  xra1202 = <&pca>,"compatible=exar,xra1202";
+ };
+};

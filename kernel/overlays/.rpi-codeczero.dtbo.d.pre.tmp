@@ -1,0 +1,3 @@
+rpi-codeczero-overlay.o: \
+ arch/arm64/boot/dts/overlays/rpi-codeczero-overlay.dts \
+ arch/arm64/boot/dts/overlays/iqaudio-codec-overlay.dts

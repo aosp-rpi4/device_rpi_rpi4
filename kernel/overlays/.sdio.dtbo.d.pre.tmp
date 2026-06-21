@@ -1,0 +1,1 @@
+sdio-overlay.o: arch/arm64/boot/dts/overlays/sdio-overlay.dts

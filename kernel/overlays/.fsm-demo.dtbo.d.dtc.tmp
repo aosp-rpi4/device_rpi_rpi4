@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/fsm-demo.dtbo: arch/arm64/boot/dts/overlays/.fsm-demo.dtbo.dts.tmp

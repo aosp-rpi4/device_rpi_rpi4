@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/iqs550.dtbo: arch/arm64/boot/dts/overlays/.iqs550.dtbo.dts.tmp

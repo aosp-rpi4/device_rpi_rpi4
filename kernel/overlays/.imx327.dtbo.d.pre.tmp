@@ -1,0 +1,4 @@
+imx327-overlay.o: arch/arm64/boot/dts/overlays/imx327-overlay.dts \
+ scripts/dtc/include-prefixes/dt-bindings/gpio/gpio.h \
+ arch/arm64/boot/dts/overlays/imx290_327-overlay.dtsi \
+ arch/arm64/boot/dts/overlays/imx290_327.dtsi

@@ -1,0 +1,1 @@
+smi-dev-overlay.o: arch/arm64/boot/dts/overlays/smi-dev-overlay.dts

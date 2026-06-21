@@ -1,0 +1,6 @@
+*.o
+*.pyc
+.DS_Store
+# Uncomment the next line if you DON'T want the ~48MB kernel prebuilts in git
+# (you'd then rebuild Image.gz/dtb from kernel_rpi_rpi4 before flashing):
+# kernel/

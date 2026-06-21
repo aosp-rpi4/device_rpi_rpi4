@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  RPi4 audio policy configuration for the AOSP default AIDL audio HAL
+  (com.android.hardware.audio apex). The apex's VINTF fragment declares three
+  audio.core.IModule instances: default, r_submix, bluetooth. The framework opens
+  ALL declared instances, so every one must be backed by a <module> here or
+  AudioPolicyService blocks forever in waitForService() (hangs system_server's
+  main thread -> watchdog kill). The AIDL converter maps the legacy module name
+  "primary" -> "default"; "r_submix" and "bluetooth" are kept as-is and map to the
+  HAL's ModuleRemoteSubmix / ModuleBluetooth stubs (no real HW needed).
+-->
+<audioPolicyConfiguration version="1.0" xmlns:xi="http://www.w3.org/2001/XInclude">
+    <globalConfiguration speaker_drc_enabled="false"/>
+
+    <modules>
+        <!-- Primary Audio HAL (XML "primary" -> AIDL IModule/default) -->
+        <xi:include href="primary_audio_policy_configuration.xml"/>
+
+        <!-- Remote Submix (IModule/r_submix) -->
+        <xi:include href="r_submix_audio_policy_configuration.xml"/>
+
+        <!-- Bluetooth (IModule/bluetooth) — required: apex VINTF declares it, so
+             the framework opens it; ModuleBluetooth is a stub when no BT present. -->
+        <xi:include href="bluetooth_audio_policy_configuration.xml"/>
+    </modules>
+
+    <xi:include href="audio_policy_volumes.xml"/>
+    <xi:include href="default_volume_tables.xml"/>
+
+    <xi:include href="surround_sound_configuration_5_0.xml"/>
+</audioPolicyConfiguration>

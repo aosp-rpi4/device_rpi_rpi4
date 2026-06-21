@@ -1,0 +1,2 @@
+ssd1351-spi-overlay.o: \
+ arch/arm64/boot/dts/overlays/ssd1351-spi-overlay.dts

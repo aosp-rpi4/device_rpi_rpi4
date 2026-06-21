@@ -1,0 +1,145 @@
+# 0 "arch/arm64/boot/dts/overlays/seeed-can-fd-hat-v1-overlay.dts"
+# 0 "<built-in>"
+# 0 "<command-line>"
+# 1 "arch/arm64/boot/dts/overlays/seeed-can-fd-hat-v1-overlay.dts"
+
+
+
+
+/dts-v1/;
+/plugin/;
+
+# 1 "./scripts/dtc/include-prefixes/dt-bindings/gpio/gpio.h" 1
+# 9 "arch/arm64/boot/dts/overlays/seeed-can-fd-hat-v1-overlay.dts" 2
+# 1 "./scripts/dtc/include-prefixes/dt-bindings/interrupt-controller/irq.h" 1
+# 10 "arch/arm64/boot/dts/overlays/seeed-can-fd-hat-v1-overlay.dts" 2
+# 1 "./scripts/dtc/include-prefixes/dt-bindings/pinctrl/bcm2835.h" 1
+# 11 "arch/arm64/boot/dts/overlays/seeed-can-fd-hat-v1-overlay.dts" 2
+
+/ {
+ compatible = "brcm,bcm2835";
+ fragment@0 {
+  target = <&gpio>;
+  __overlay__ {
+   spi1_pins: spi1_pins {
+    brcm,pins = <19 20 21>;
+    brcm,function = <3>;
+   };
+   spi1_cs_pins: spi1_cs_pins {
+    brcm,pins = <18>;
+    brcm,function = <1>;
+   };
+  };
+ };
+ fragment@1 {
+  target = <&spi1>;
+  __overlay__ {
+   #address-cells = <1>;
+   #size-cells = <0>;
+   pinctrl-names = "default";
+   pinctrl-0 = <&spi1_pins &spi1_cs_pins>;
+   cs-gpios = <&gpio 18 1>;
+   status = "okay";
+   spidev@0 {
+    compatible = "spidev";
+    reg = <0>;
+    #address-cells = <1>;
+    #size-cells = <0>;
+    spi-max-frequency = <125000000>;
+    status = "disabled";
+   };
+  };
+ };
+ fragment@2 {
+  target = <&aux>;
+  __overlay__ {
+   status = "okay";
+  };
+ };
+ fragment@3 {
+  target = <&spidev0>;
+  __overlay__ {
+   status = "disabled";
+  };
+ };
+ fragment@4 {
+  target = <&gpio>;
+  __overlay__ {
+   mcp251xfd_pins: mcp251xfd_spi0_0_pins {
+    brcm,pins = <25>;
+    brcm,function = <0>;
+   };
+  };
+ };
+ fragment@5 {
+  target-path = "/clocks";
+  __overlay__ {
+   clk_mcp251xfd_osc: mcp251xfd-spi0-0-osc {
+    #clock-cells = <0>;
+    compatible = "fixed-clock";
+    clock-frequency = <40000000>;
+   };
+  };
+ };
+ fragment@6 {
+  target = <&spi0>;
+  __overlay__ {
+   status = "okay";
+   #address-cells = <1>;
+   #size-cells = <0>;
+   mcp251xfd@0 {
+    compatible = "microchip,mcp251xfd";
+    reg = <0>;
+    pinctrl-names = "default";
+    pinctrl-0 = <&mcp251xfd_pins>;
+    spi-max-frequency = <20000000>;
+    interrupt-parent = <&gpio>;
+    interrupts = <25 8>;
+    clocks = <&clk_mcp251xfd_osc>;
+   };
+  };
+ };
+ fragment@7 {
+  target-path = "spi1/spidev@0";
+  __overlay__ {
+   status = "disabled";
+  };
+ };
+ fragment@8 {
+  target = <&gpio>;
+  __overlay__ {
+   mcp251xfd_pins_1: mcp251xfd_spi1_0_pins {
+    brcm,pins = <24>;
+    brcm,function = <0>;
+   };
+  };
+ };
+ fragment@9 {
+  target-path = "/clocks";
+  __overlay__ {
+   clk_mcp251xfd_osc_1: mcp251xfd-spi1-0-osc {
+    #clock-cells = <0>;
+    compatible = "fixed-clock";
+    clock-frequency = <40000000>;
+   };
+  };
+ };
+ fragment@10 {
+  target = <&spi1>;
+  __overlay__ {
+   status = "okay";
+   #address-cells = <1>;
+   #size-cells = <0>;
+   mcp251xfd@0 {
+    compatible = "microchip,mcp251xfd";
+    reg = <0>;
+    pinctrl-names = "default";
+    pinctrl-0 = <&mcp251xfd_pins_1>;
+    spi-max-frequency = <20000000>;
+    interrupt-parent = <&gpio>;
+    interrupts = <24 8>;
+    clocks = <&clk_mcp251xfd_osc_1>;
+   };
+  };
+ };
+};

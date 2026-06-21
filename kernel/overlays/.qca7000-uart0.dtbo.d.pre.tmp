@@ -1,0 +1,2 @@
+qca7000-uart0-overlay.o: \
+ arch/arm64/boot/dts/overlays/qca7000-uart0-overlay.dts

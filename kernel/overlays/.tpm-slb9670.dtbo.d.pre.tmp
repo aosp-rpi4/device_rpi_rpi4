@@ -1,0 +1,2 @@
+tpm-slb9670-overlay.o: \
+ arch/arm64/boot/dts/overlays/tpm-slb9670-overlay.dts

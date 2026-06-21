@@ -1,0 +1,2 @@
+pifi-dac-zero-overlay.o: \
+ arch/arm64/boot/dts/overlays/pifi-dac-zero-overlay.dts

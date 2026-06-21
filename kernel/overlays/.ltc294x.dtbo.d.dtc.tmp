@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/ltc294x.dtbo: arch/arm64/boot/dts/overlays/.ltc294x.dtbo.dts.tmp

@@ -1,0 +1,1 @@
+apds9960-overlay.o: arch/arm64/boot/dts/overlays/apds9960-overlay.dts

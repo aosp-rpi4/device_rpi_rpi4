@@ -1,0 +1,65 @@
+# 0 "arch/arm64/boot/dts/overlays/iqs550-overlay.dts"
+# 0 "<built-in>"
+# 0 "<command-line>"
+# 1 "arch/arm64/boot/dts/overlays/iqs550-overlay.dts"
+
+
+/dts-v1/;
+/plugin/;
+# 1 "./scripts/dtc/include-prefixes/dt-bindings/gpio/gpio.h" 1
+# 6 "arch/arm64/boot/dts/overlays/iqs550-overlay.dts" 2
+# 1 "./scripts/dtc/include-prefixes/dt-bindings/interrupt-controller/irq.h" 1
+# 7 "arch/arm64/boot/dts/overlays/iqs550-overlay.dts" 2
+
+/ {
+ compatible = "brcm,bcm2835";
+
+ fragment@0 {
+  target = <&i2c1>;
+  __overlay__ {
+   #address-cells = <1>;
+   #size-cells = <0>;
+   status = "okay";
+
+   iqs550: iqs550@74 {
+    compatible = "azoteq,iqs550";
+    reg = <0x74>;
+    interrupt-parent = <&gpio>;
+    interrupts = <4 4>;
+    pinctrl-names = "default";
+    pinctrl-0 = <&iqs550_pins>;
+    touchscreen-size-x = <800>;
+    touchscreen-size-y = <480>;
+   };
+  };
+ };
+
+ fragment@1 {
+  target = <&iqs550>;
+  iqs550_reset: __dormant__ {
+   reset-gpios = <&gpio 255 (1 |
+        0)>;
+  };
+ };
+
+ fragment@2 {
+  target = <&gpio>;
+  __overlay__ {
+   iqs550_pins: iqs550_pins {
+    brcm,pins = <4>;
+    brcm,pull = <1>;
+   };
+  };
+ };
+
+ __overrides__ {
+  interrupt = <&iqs550>,"interrupts:0",
+       <&iqs550_pins>,"brcm,pins:0";
+  reset = <0>,"+1", <&iqs550_reset>,"reset-gpios:4";
+  sizex = <&iqs550>,"touchscreen-size-x:0";
+  sizey = <&iqs550>,"touchscreen-size-y:0";
+  invx = <&iqs550>,"touchscreen-inverted-x?";
+  invy = <&iqs550>,"touchscreen-inverted-y?";
+  swapxy = <&iqs550>,"touchscreen-swapped-x-y?";
+ };
+};

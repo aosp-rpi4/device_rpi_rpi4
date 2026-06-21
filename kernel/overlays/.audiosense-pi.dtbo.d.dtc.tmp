@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/audiosense-pi.dtbo: arch/arm64/boot/dts/overlays/.audiosense-pi.dtbo.dts.tmp

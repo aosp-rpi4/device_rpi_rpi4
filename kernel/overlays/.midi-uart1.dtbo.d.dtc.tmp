@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/midi-uart1.dtbo: arch/arm64/boot/dts/overlays/.midi-uart1.dtbo.dts.tmp

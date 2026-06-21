@@ -1,0 +1,2 @@
+w1-gpio-pullup-overlay.o: \
+ arch/arm64/boot/dts/overlays/w1-gpio-pullup-overlay.dts

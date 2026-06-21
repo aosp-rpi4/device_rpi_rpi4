@@ -1,0 +1,52 @@
+# 0 "arch/arm64/boot/dts/overlays/dht11-overlay.dts"
+# 0 "<built-in>"
+# 0 "<command-line>"
+# 1 "arch/arm64/boot/dts/overlays/dht11-overlay.dts"
+
+
+
+/dts-v1/;
+/plugin/;
+
+/ {
+ compatible = "brcm,bcm2835";
+
+ fragment@0 {
+  target-path = "/";
+  __overlay__ {
+   dht11: dht11@4 {
+    compatible = "dht11";
+    pinctrl-names = "default";
+    pinctrl-0 = <&dht11_pins>;
+    gpios = <&gpio 4 0>;
+    status = "okay";
+    #io-channel-cells = <1>;
+   };
+
+   iio: iio-hwmon@4 {
+    compatible = "iio-hwmon";
+    status = "okay";
+    io-channels = <&dht11 0>, <&dht11 1>;
+   };
+  };
+ };
+
+ fragment@1 {
+  target = <&gpio>;
+  __overlay__ {
+   dht11_pins: dht11_pins@4 {
+    brcm,pins = <4>;
+    brcm,function = <0>;
+    brcm,pull = <0>;
+   };
+  };
+ };
+
+ __overrides__ {
+  gpiopin = <&dht11_pins>,"brcm,pins:0",
+   <&dht11_pins>, "reg:0",
+   <&dht11>,"gpios:4",
+   <&dht11>,"reg:0",
+   <&iio>,"reg:0";
+ };
+};

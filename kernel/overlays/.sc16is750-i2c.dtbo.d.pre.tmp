@@ -1,0 +1,3 @@
+sc16is750-i2c-overlay.o: \
+ arch/arm64/boot/dts/overlays/sc16is750-i2c-overlay.dts \
+ arch/arm64/boot/dts/overlays/i2c-buses.dtsi

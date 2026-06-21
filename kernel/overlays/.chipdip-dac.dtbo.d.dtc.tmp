@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/chipdip-dac.dtbo: arch/arm64/boot/dts/overlays/.chipdip-dac.dtbo.dts.tmp

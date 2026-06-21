@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/exc3000.dtbo: arch/arm64/boot/dts/overlays/.exc3000.dtbo.dts.tmp

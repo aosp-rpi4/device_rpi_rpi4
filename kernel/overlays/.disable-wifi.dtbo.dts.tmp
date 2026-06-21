@@ -1,0 +1,24 @@
+# 0 "arch/arm64/boot/dts/overlays/disable-wifi-overlay.dts"
+# 0 "<built-in>"
+# 0 "<command-line>"
+# 1 "arch/arm64/boot/dts/overlays/disable-wifi-overlay.dts"
+/dts-v1/;
+/plugin/;
+
+/{
+ compatible = "brcm,bcm2835";
+
+ fragment@0 {
+  target = <&mmc>;
+  __overlay__ {
+   status = "disabled";
+  };
+ };
+
+ fragment@1 {
+  target = <&mmcnr>;
+  __overlay__ {
+   status = "disabled";
+  };
+ };
+};

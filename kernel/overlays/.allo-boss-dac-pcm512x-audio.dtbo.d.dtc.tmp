@@ -1,0 +1,1 @@
+arch/arm64/boot/dts/overlays/allo-boss-dac-pcm512x-audio.dtbo: arch/arm64/boot/dts/overlays/.allo-boss-dac-pcm512x-audio.dtbo.dts.tmp

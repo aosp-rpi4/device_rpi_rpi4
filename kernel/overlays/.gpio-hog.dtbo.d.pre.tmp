@@ -1,0 +1,2 @@
+gpio-hog-overlay.o: arch/arm64/boot/dts/overlays/gpio-hog-overlay.dts \
+ scripts/dtc/include-prefixes/dt-bindings/gpio/gpio.h

@@ -1,0 +1,1 @@
+pitft22-overlay.o: arch/arm64/boot/dts/overlays/pitft22-overlay.dts
