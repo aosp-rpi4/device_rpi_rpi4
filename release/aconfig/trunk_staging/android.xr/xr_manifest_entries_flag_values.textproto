@@ -1,0 +1,6 @@
+flag_value {
+  package: "android.xr"
+  name: "xr_manifest_entries"
+  state: DISABLED
+  permission: READ_ONLY
+}

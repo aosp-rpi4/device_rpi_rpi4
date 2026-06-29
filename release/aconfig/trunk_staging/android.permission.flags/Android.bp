@@ -1,0 +1,7 @@
+// SPDX-License-Identifier: Apache-2.0
+// Device-local aconfig flag-value overrides for the RPi4 AAOS BSP. See ../README.md F.5/F.6.
+aconfig_values {
+    name: "aconfig-values-rpi4-trunk_staging-android.permission.flags-all",
+    package: "android.permission.flags",
+    srcs: ["*_flag_values.textproto"],
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Device overlay for the RPi4 AAOS BSP (PRODUCT_PACKAGE_OVERLAYS).
+
+  Default Settings.Global.BLUETOOTH_ON to OFF at first boot.
+
+  The RPi4 has no wired-up Bluetooth HCI HAL yet (BT bring-up is a later stage:
+  hci_uart + BCM4345C0 firmware + a BT HCI HAL). We still declare FEATURE_BLUETOOTH
+  (so CarService's CarPerUserServiceImpl gets a non-null BluetoothAdapter and does
+  not NPE), but CarService's BluetoothPowerPolicy reads Settings.Global.BLUETOOTH_ON
+  (def_bluetooth_on) on power-on and, if ON, calls mBluetoothAdapter.enable(). With
+  no HAL, the BT stack (com.android.bluetooth) then aborts natively in HciBackend
+  ("HidlHci: assert failed: hci_ != nullptr") -> tombstone storm -> RescueParty
+  reboot loop -> AAOS never leaves the boot animation. Defaulting BLUETOOTH_ON=0
+  keeps BT powered off, so the HAL-less stack is never started. When BT is brought
+  up later, drop this overlay. See device/rpi/rpi4/README.md Stage F.6.
+-->
+<resources>
+    <bool name="def_bluetooth_on">false</bool>
+</resources>

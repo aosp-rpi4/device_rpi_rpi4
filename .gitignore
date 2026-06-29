@@ -4,3 +4,7 @@
 # Uncomment the next line if you DON'T want the ~48MB kernel prebuilts in git
 # (you'd then rebuild Image.gz/dtb from kernel_rpi_rpi4 before flashing):
 # kernel/
+
+# Verbose bring-up log / source for an external BSP-integration learning doc.
+# Kept locally, not tracked in the repo (the repo README is the concise intro).
+steps.md

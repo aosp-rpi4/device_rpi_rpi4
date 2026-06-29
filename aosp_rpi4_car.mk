@@ -18,6 +18,15 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/generic_ramdisk.mk)
 
+# Dalvik/ART heap config for a 2 GB device. Without this the platform ships NO
+# dalvik.vm.heap* properties, so ART falls back to tiny defaults and system_server
+# (a large-heap process) is capped at ~16 MB: it GC-thrashes and then dies with
+# OutOfMemoryError (e.g. BinaryTransparencyService.collectBootIntegrityInfo trying
+# to allocate ~1 MB), which trips RescueParty -> reboot loop. The RPi4 4B has 2-8 GB
+# RAM, so inherit the standard 2 GB profile (heapsize=512m, heapgrowthlimit=192m).
+# See device/rpi/rpi4/README.md Stage F.6.
+$(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
+
 # Shared RPi4 hardware (kernel, graphics/Mesa, gralloc, audio, stub HALs, VINTF)
 $(call inherit-product, device/rpi/rpi4/rpi4_common.mk)
 
@@ -59,29 +68,50 @@ PRODUCT_PRODUCT_PROPERTIES += \
     ro.fw.mu.headless_system_user=false
 
 # ---------------------------------------------------------------------------
-# Declare the Bluetooth hardware feature — required by CarService.
+# Bluetooth — declare CLASSIC only (no BLE), keep BT OFF, no HAL (see Stage F.6).
 #
 # CarService's CarPerUserServiceImpl.onCreate() UNCONDITIONALLY constructs
-# CarBluetoothUserService, whose ctor does
-#   requireNonNull(getSystemService(BluetoothManager.class).getAdapter(),
-#                  "Bluetooth adapter cannot be null")
-# There is no feature gate, so a null adapter is fatal -> com.android.car
-# crash-loops -> AMS kills it ("crashed too many times") -> CarSystemUI,
-# CarLauncher and car.media all NPE because Car never becomes ready (this also
-# produced the "shutting down" dialog — Car, not the power policy, was the
-# problem; CarPowerManagementService correctly reported state ON).
+# CarBluetoothUserService, whose ctor requireNonNull(getAdapter()). SystemServer
+# only starts BluetoothManagerService (which provides that adapter object) when
+# FEATURE_BLUETOOTH is declared, so we MUST declare it or CarService NPE-crashes.
 #
-# SystemServer only starts BluetoothManagerService when FEATURE_BLUETOOTH is
-# declared (SystemServer.java ~1757); neither handheld_system nor car.mk
-# declares it. The RPi4 *does* have onboard Bluetooth (BCM43455 over UART), but
-# it isn't wired up yet (no hci_uart/firmware/BT HAL). Declaring the feature is
-# enough to make getAdapter() return a (powered-off) non-null adapter, which
-# unblocks CarService. Full BT bring-up — needed later for WIRELESS Android Auto
-# — is a separate stage; wired AA/CarPlay via the Carlinkit dongle is USB and
-# does not need this.
+# This board has no usable BT controller yet (the BCM43455 is on the PL011 UART,
+# which we use for the serial console — real BT bring-up needs the console moved
+# off ttyAMA0 + hci_uart + firmware; a later stage). So if the BT stack ever
+# *starts*, it crashes: with no AIDL HAL it falls back to CreateHidl() which
+# hard-asserts ("hci_ != nullptr"); and the stock AIDL HAL
+# (android.hardware.bluetooth-service.default) is NO better here — with no
+# controller it aborts in AsyncFdWatcher ("FORTIFY: FD_SET: fd -1 < 0"). Either
+# way -> SIGABRT -> RescueParty reboot loop. So the strategy is to make sure the
+# stack NEVER starts:
+#   * classic auto-enable is suppressed by def_bluetooth_on=false (overlay below),
+#   * BLE is the other trigger (an app requesting BLE scans, independent of
+#     BLUETOOTH_ON), so we DON'T declare FEATURE_BLUETOOTH_LE — well-behaved BLE
+#     callers gate on it, so they won't start the stack.
+# The classic adapter object still exists (FEATURE_BLUETOOTH), so CarService is
+# happy. When BT is properly brought up later, re-add bluetooth_le.xml + the real
+# HAL. (Wired AA/CarPlay via the Carlinkit dongle is USB and needs no Bluetooth.)
 PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.hardware.bluetooth.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth.xml \
-    frameworks/native/data/etc/android.hardware.bluetooth_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth_le.xml
+    frameworks/native/data/etc/android.hardware.bluetooth.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.bluetooth.xml
+
+# Device overlay: default Settings.Global.BLUETOOTH_ON = OFF (see BT note above).
+PRODUCT_PACKAGE_OVERLAYS += device/rpi/rpi4/overlay
+
+# CarService needs liblargeparcelablejni (com.android.car.internal.LargeParcelableBase
+# -> AidlVehicleStub). In the non-module CarService build the .so is not packaged
+# (car-lib declares it as jni_libs but the app pulls car-lib via `libs:`, so it
+# does not propagate; the module/apex build gets it from the apex). Install it to
+# /system/lib64 so com.android.car can dlopen it — otherwise CarService crash-loops
+# with UnsatisfiedLinkError ("liblargeparcelablejni.so not found"). See Stage F.6.
+PRODUCT_PACKAGES += liblargeparcelablejni
+
+# Device-local aconfig flag-value overrides (release/). Disables the app-op-backed
+# permission flags that the BP4A snapshot ships ENABLED but whose <permission>
+# aapt2 doesn't finalize in framework-res, which crash-loops system_server in
+# AppOpService.createPermissionAppOpMapping. See release/release_config_map.textproto
+# and README Stage F.5/F.6.
+PRODUCT_RELEASE_CONFIG_MAPS += \
+    $(wildcard device/rpi/rpi4/release/release_config_map.textproto)
 
 # Declare USB host (+ accessory) — the RPi4 is a USB host. Without
 # android.hardware.usb.host, UsbManager is null and CarService's USB handler

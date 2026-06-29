@@ -1,0 +1,11 @@
+# Device-local release-config map for the RPi4 AAOS BSP.
+# Registered via PRODUCT_RELEASE_CONFIG_MAPS in aosp_rpi4_car.mk. Its only job is
+# to carry the aconfig flag-value overrides under ./aconfig/<release>/, which
+# DISABLE the app-op-backed permission flags that the BP4A snapshot ships ENABLED
+# but whose <permission> aapt2 does NOT finalize in framework-res. That mismatch
+# (op registered, permission dropped at runtime parse) crash-loops system_server
+# in AppOpService.createPermissionAppOpMapping ("Missing permission definition for
+# permission ... associated with app op N") and trips RescueParty. Disabling the
+# flag makes AppOpsManager give the op a null permission, so the op is simply
+# skipped — no mismatch, no crash. See device/rpi/rpi4/README.md Stage F.5/F.6.
+default_containers: "system"

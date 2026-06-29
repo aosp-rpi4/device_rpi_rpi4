@@ -1,0 +1,6 @@
+flag_value {
+  package: "android.app"
+  name: "ui_rich_ongoing"
+  state: DISABLED
+  permission: READ_ONLY
+}
