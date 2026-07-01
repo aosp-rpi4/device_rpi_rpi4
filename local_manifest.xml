@@ -15,7 +15,7 @@
   <remote name="rpi"       fetch="https://github.com/raspberrypi/" />
 
   <!-- Additions (not present in stock AOSP) -->
-  <project path="device/rpi/rpi4"     name="device_rpi_rpi4"     remote="aosp-rpi4" revision="main">
+  <project path="device/rpi/rpi4"     name="device_rpi_rpi4"     remote="aosp-rpi4" revision="a16r4">
     <!-- Allow Mesa-v3d's legacy Android.mk past Soong's external/ denylist,
          without editing build/soong: Soong reads this path as an extra allowlist. -->
     <copyfile src="androidmk_allowlist.txt" dest="vendor/google/build/androidmk/allowlist.txt" />

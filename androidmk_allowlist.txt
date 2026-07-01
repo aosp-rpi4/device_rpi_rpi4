@@ -1,2 +1,3 @@
 external/mesa3d-v3d/android/Android.mk
 external/mesa3d-v3d/android/meson_wrapper/Android.mk
+external/minigbm/gbm_mesa_driver/Android.mk
